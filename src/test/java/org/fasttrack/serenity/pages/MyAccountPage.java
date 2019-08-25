@@ -45,7 +45,7 @@ public class MyAccountPage extends PageObject {
      * Register methods
      */
 
-    public void setEmailField(String email) {
+    public void setRegEmailField(String email) {
         typeInto(regEmailField, email);
     }
 
@@ -65,24 +65,28 @@ public class MyAccountPage extends PageObject {
      * Login methods
      */
 
-    public void setUsernameField(String username){
+    public void setUsernameField(String username) {
         typeInto(usernameField, username);
     }
 
-    public void setPasswordField(String password){
+    public void setPasswordField(String password) {
         typeInto(passwordField, password);
     }
 
-    public void clickLoginButton(){
+    public void clickLoginButton() {
         clickOn(loginButton);
     }
 
-    public void clickRememberMe(){
+    public void clickRememberMe() {
         clickOn(rememberMeCheckbox);
     }
 
-    public void clickLostPasswordLink(){
+    public void clickLostPasswordLink() {
         clickOn(lostPasswordLink);
+    }
+
+    public boolean checkEmailErrorMessage() {
+        return regError.containsText(("Error").toUpperCase());
     }
 
 

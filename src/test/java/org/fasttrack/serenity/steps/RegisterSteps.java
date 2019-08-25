@@ -12,24 +12,24 @@ public class RegisterSteps extends PageObject {
     private MyAccountPage myAccountPage;
 
     @Step
-    public void navigateToHomePage(){
+    public void navigateToHomePage() {
         homePage.open();
     }
 
     @Step
-    public void navigateToMyAccountPage(){
+    public void navigateToMyAccountPage() {
         homePage.clickMyAccountLink();
     }
 
     @Step
-    public void performRegister(String email, String password){
-        myAccountPage.setEmailField(email);
+    public void performRegister(String email, String password) {
+        myAccountPage.setRegEmailField(email);
         myAccountPage.setRegPasswordField(password);
         myAccountPage.clickRegisterButton();
     }
 
     @Step
-    public void verifyRegistrationFailed(){
+    public void verifyRegistrationFailed() {
         Assert.assertTrue("Registration was not done!", myAccountPage.checkRegErrorMessage());
     }
 
