@@ -1,6 +1,5 @@
 package org.fasttrack.serenity.features;
 
-
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -13,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(SerenityRunner.class)
-public class RegisterTest {
+public class LoginTests {
 
     @Managed(uniqueSession = true)
     private WebDriver driver;
@@ -30,36 +29,36 @@ public class RegisterTest {
     private LoginSteps loginSteps;
 
     @Test
-    public void performUserRegistrationTest() {
+    public void validLoginTest() {
         registerSteps.navigateToHomePage();
         registerSteps.navigateToMyAccountPage();
-        registerSteps.performRegister("testareUser1@mailinator.com", "@Qwerty1234poiu");
-        loginSteps.verifyLoginOrRegistrationSuccessful("testareUser1");
+        loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASSWORD);
+        loginSteps.verifyLoginOrRegistrationSuccessful(Constants.USER_NAME);
     }
 
     @Test
-    public void registrationEmptyEmailFieldTest() {
+    public void invalidLoginTest() {
         registerSteps.navigateToHomePage();
         registerSteps.navigateToMyAccountPage();
-        registerSteps.performRegister("", Constants.USER_PASSWORD);
-        registerSteps.verifyEmailMissingErrorMessageIsDisplayed();
+        loginSteps.performLogin("", Constants.USER_PASSWORD);
+        loginSteps.verifyLoginFailed();
     }
 
     @Test
-    public void registrationEmptyPasswordFieldTest() {
+    public void loginLogoutLeftButtonTest() {
         registerSteps.navigateToHomePage();
         registerSteps.navigateToMyAccountPage();
-        registerSteps.performRegister("testareUser@mailinator.com", "");
-        registerSteps.verifyPasswordMissingErrorMessageIsDisplayed();
+        loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASSWORD);
+        loginSteps.performLeftLogout();
+        loginSteps.verifyLogoutSuccessful();
     }
 
     @Test
-    public void registrationWithExistingEmailTest() {
+    public void loginLogoutMainButtonTest() {
         registerSteps.navigateToHomePage();
         registerSteps.navigateToMyAccountPage();
-        registerSteps.performRegister(Constants.USER_EMAIL, "");
-        registerSteps.verifyErrorDisplayedIfRegistrationWithAnExistingEmail();
+        loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASSWORD);
+        loginSteps.performMainLogout();
+        loginSteps.verifyLogoutSuccessful();
     }
-
-
 }

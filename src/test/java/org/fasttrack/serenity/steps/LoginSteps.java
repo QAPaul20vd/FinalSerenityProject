@@ -18,6 +18,26 @@ public class LoginSteps extends PageObject {
 
     @Step
     public void verifyLoginFailed() {
-        Assert.assertTrue("Registration was not done!", myAccountPage.checkEmailErrorMessage());
+        Assert.assertTrue("Login was not done!", myAccountPage.errorMessageWhenEmailMissing());
+    }
+
+    @Step
+    public void verifyLoginOrRegistrationSuccessful(String username) {
+        Assert.assertTrue(myAccountPage.checkLoginOrRegistrationSuccess(username));
+    }
+
+    @Step
+    public void performLeftLogout(){
+        myAccountPage.clickLeftLogoutButton();
+    }
+
+    @Step
+    public void performMainLogout(){
+        myAccountPage.clickMainLogoutButton();
+    }
+
+    @Step
+    public void verifyLogoutSuccessful(){
+        Assert.assertTrue(myAccountPage.verifyLogoutDone());
     }
 }

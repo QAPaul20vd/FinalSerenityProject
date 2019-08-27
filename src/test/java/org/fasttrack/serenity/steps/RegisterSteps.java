@@ -14,6 +14,7 @@ public class RegisterSteps extends PageObject {
     @Step
     public void navigateToHomePage() {
         homePage.open();
+        homePage.waitTime();
     }
 
     @Step
@@ -29,8 +30,18 @@ public class RegisterSteps extends PageObject {
     }
 
     @Step
-    public void verifyRegistrationFailed() {
-        Assert.assertTrue("Registration was not done!", myAccountPage.checkRegErrorMessage());
+    public void verifyEmailMissingErrorMessageIsDisplayed() {
+        Assert.assertTrue("Registration was not done!", myAccountPage.errorMessageWhenEmailMissing());
+    }
+
+    @Step
+    public void verifyPasswordMissingErrorMessageIsDisplayed() {
+        Assert.assertTrue("Registration was not done!", myAccountPage.errorMessageWhenPasswordMissing());
+    }
+
+    @Step
+    public void verifyErrorDisplayedIfRegistrationWithAnExistingEmail(){
+        Assert.assertTrue("Registration was not done!", myAccountPage.errorMsgWhenTryRegistrationWithAnExistingEmail());
     }
 
 }

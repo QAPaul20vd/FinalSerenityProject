@@ -42,6 +42,27 @@ public class MyAccountPage extends PageObject {
     private WebElementFacade lostPasswordLink;
 
     /**
+     * Logout Selectors
+     */
+
+    @FindBy(css = "nav a[href*='logout']")
+    private WebElementFacade leftSideLogoutButton;
+
+    @FindBy(css = "div[class*='MyAccount'] a[href*='logout']")
+    private WebElementFacade myAccountMainLogoutButton;
+
+    @FindBy(css = "#meta-2 a[href*=logout]")
+    private WebElementFacade rightSideMetaLogoutButton;
+
+    /**
+     * My account selectors
+     */
+
+    @FindBy(css = "div[class*='MyAccount']>p:first-child")
+    private WebElementFacade welcomeMsg;
+
+
+    /**
      * Register methods
      */
 
@@ -57,9 +78,6 @@ public class MyAccountPage extends PageObject {
         clickOn(registerButton);
     }
 
-    public boolean checkRegErrorMessage() {
-        return regError.containsText("Error");
-    }
 
     /**
      * Login methods
@@ -85,8 +103,48 @@ public class MyAccountPage extends PageObject {
         clickOn(lostPasswordLink);
     }
 
-    public boolean checkEmailErrorMessage() {
-        return regError.containsText(("Error").toUpperCase());
+    /**
+     * Logout methods
+     */
+
+    public void clickLeftLogoutButton() {
+        leftSideLogoutButton.waitUntilVisible();
+        clickOn(leftSideLogoutButton);
+    }
+
+    public void clickMainLogoutButton() {
+        myAccountMainLogoutButton.waitUntilVisible();
+        clickOn(myAccountMainLogoutButton);
+    }
+
+    public void clickRightLogoutButton() {
+        rightSideMetaLogoutButton.waitUntilVisible();
+        clickOn(rightSideMetaLogoutButton);
+    }
+
+    /**
+     * Verification methods
+     */
+
+    public boolean errorMessageWhenEmailMissing() {
+        return regError.containsText("Please provide a valid email address.");
+    }
+
+    public boolean errorMessageWhenPasswordMissing(){
+        return regError.containsText("Please enter an account password.");
+    }
+
+    public boolean errorMsgWhenTryRegistrationWithAnExistingEmail(){
+        return regError.containsText("An account is already registered with your email address. Please log in.");
+    }
+
+
+    public boolean checkLoginOrRegistrationSuccess(String username) {
+        return welcomeMsg.containsText("Hello " + username);
+    }
+
+    public boolean verifyLogoutDone() {
+        return loginButton.isCurrentlyVisible();
     }
 
 

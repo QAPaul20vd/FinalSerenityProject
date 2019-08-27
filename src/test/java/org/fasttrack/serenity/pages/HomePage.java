@@ -16,16 +16,16 @@ public class HomePage extends PageObject {
     @FindBy(css = ".menu > li.menu-item-home")
     private WebElementFacade homeLink;
 
-    @FindBy(css = ".menu a[href*=my-account]")
+    @FindBy(css = ".menu a[href*='my-account']")
     private WebElementFacade myAccountLink;
 
     @FindBy(css = "#menu-item-59 a")
     private WebElementFacade cartLink;
 
-    @FindBy(css = ".menu a[href*=shop]")
+    @FindBy(css = ".menu a[href*='shop']")
     private WebElementFacade shopLink;
 
-    @FindBy(css = ".menu a[href*=checkout]")
+    @FindBy(css = ".menu a[href*='checkout']")
     private WebElementFacade checkoutLink;
 
     /**
@@ -50,6 +50,10 @@ public class HomePage extends PageObject {
 
     public void clickCheckoutLink() {
         clickOn(checkoutLink);
+    }
+
+    public void waitTime() {
+        waitFor(myAccountLink);
     }
 
 
