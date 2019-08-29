@@ -2,12 +2,17 @@ package org.fasttrack.serenity.pages;
 
 
 import net.serenitybdd.core.annotations.findby.FindBy;
-import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+
+import static java.time.temporal.ChronoUnit.SECONDS;
+
 @DefaultUrl("http://qa1.fasttrackit.org:8008/")
-public class HomePage extends PageObject {
+public class HomePage extends BasePage {
 
     /**
      * Main menu selectors
@@ -28,32 +33,30 @@ public class HomePage extends PageObject {
     @FindBy(css = ".menu a[href*='checkout']")
     private WebElementFacade checkoutLink;
 
+    @FindBy(css = "li[id*=menu]")
+    private List<WebElementFacade> listOfMenuLinks;
+
+    @FindBy(css = "div.preloader")
+    private WebElementFacade preloader;
+
     /**
      * Main menu methods
      */
 
     public void clickHomeLink() {
+        waitPreloaderDisapear();
         clickOn(homeLink);
     }
 
-    public void clickMyAccountLink() {
-        clickOn(myAccountLink);
-    }
-
-    public void clickCartLink() {
-        clickOn(cartLink);
-    }
-
-    public void clickShopLink() {
-        clickOn(shopLink);
-    }
 
     public void clickCheckoutLink() {
+        waitPreloaderDisapear();
         clickOn(checkoutLink);
     }
 
-    public void waitTime() {
-        waitFor(myAccountLink);
+    public void clickMenuLink(String item) {
+        waitPreloaderDisapear();
+        clickItemFromList(listOfMenuLinks, item);
     }
 
 

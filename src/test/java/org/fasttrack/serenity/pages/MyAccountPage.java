@@ -1,10 +1,11 @@
 package org.fasttrack.serenity.pages;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
-import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class MyAccountPage extends PageObject {
+import java.util.NoSuchElementException;
+
+public class MyAccountPage extends BasePage {
 
     /**
      * Register Selectors
@@ -84,18 +85,22 @@ public class MyAccountPage extends PageObject {
      */
 
     public void setUsernameField(String username) {
+        usernameField.waitUntilVisible();
         typeInto(usernameField, username);
     }
 
     public void setPasswordField(String password) {
+        passwordField.waitUntilVisible();
         typeInto(passwordField, password);
     }
 
     public void clickLoginButton() {
+        loginButton.waitUntilClickable();
         clickOn(loginButton);
     }
 
     public void clickRememberMe() {
+        rememberMeCheckbox.waitUntilClickable();
         clickOn(rememberMeCheckbox);
     }
 
@@ -108,17 +113,17 @@ public class MyAccountPage extends PageObject {
      */
 
     public void clickLeftLogoutButton() {
-        leftSideLogoutButton.waitUntilVisible();
+        waitPreloaderDisapear();
         clickOn(leftSideLogoutButton);
     }
 
     public void clickMainLogoutButton() {
-        myAccountMainLogoutButton.waitUntilVisible();
+        waitPreloaderDisapear();
         clickOn(myAccountMainLogoutButton);
     }
 
     public void clickRightLogoutButton() {
-        rightSideMetaLogoutButton.waitUntilVisible();
+        waitPreloaderDisapear();
         clickOn(rightSideMetaLogoutButton);
     }
 
@@ -126,11 +131,11 @@ public class MyAccountPage extends PageObject {
      * Verification methods
      */
 
-    public boolean errorMessageWhenEmailMissing() {
+    public boolean regErrorMessageWhenEmailMissing() {
         return regError.containsText("Please provide a valid email address.");
     }
 
-    public boolean errorMessageWhenPasswordMissing(){
+    public boolean regErrorMessageWhenPasswordMissing(){
         return regError.containsText("Please enter an account password.");
     }
 
@@ -138,6 +143,9 @@ public class MyAccountPage extends PageObject {
         return regError.containsText("An account is already registered with your email address. Please log in.");
     }
 
+    public boolean loginErrorMsgWhenMissingUsername(){
+        return regError.containsText("Username is required");
+    }
 
     public boolean checkLoginOrRegistrationSuccess(String username) {
         return welcomeMsg.containsText("Hello " + username);

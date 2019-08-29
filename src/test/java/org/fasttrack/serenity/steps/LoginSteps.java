@@ -18,7 +18,7 @@ public class LoginSteps extends PageObject {
 
     @Step
     public void verifyLoginFailed() {
-        Assert.assertTrue("Login was not done!", myAccountPage.errorMessageWhenEmailMissing());
+        Assert.assertTrue("Login was not done!", myAccountPage.loginErrorMsgWhenMissingUsername());
     }
 
     @Step

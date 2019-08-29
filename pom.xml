@@ -14,6 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <serenity.version>2.0.66</serenity.version>
         <webdriver.driver>chrome</webdriver.driver>
+        <serenity.take.screenshots>FOR_EACH_ACTION</serenity.take.screenshots>
     </properties>
 
     <repositories>
