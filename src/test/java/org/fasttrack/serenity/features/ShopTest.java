@@ -23,7 +23,7 @@ public class ShopTest extends BaseTest {
     private ShopSteps shopSteps;
 
     @Test
-    public void sortByPriceAscendingTest(){
+    public void sortByPriceAscendingTest() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.sortProductsBy(Constants.SORT_BY_PRICE_ASC);
@@ -31,11 +31,21 @@ public class ShopTest extends BaseTest {
     }
 
     @Test
-    public void sortByPriceDescendingTest(){
+    public void sortByPriceDescendingTest() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.sortProductsBy(Constants.SORT_BY_PRICE_DESC);
         shopSteps.verifyDescendingSortingPriceByPrice();
+    }
+
+    @Test
+    public void addToCartOneProdutStep() {
+        homeSteps.navigateToHomePage();
+        homeSteps.clickShopLink();
+        shopSteps.clickProduct(4);
+        shopSteps.verifyProductPageIsDisplayed();
+        shopSteps.addProductToCartIfInStock();
+        shopSteps.verifyProductWasAddedToCart();
     }
 
 }

@@ -36,6 +36,10 @@ public class BasePage extends PageObject {
         }
     }
 
+    protected void clickItemFromList(List<WebElementFacade> list, int i) {
+        clickOn(list.get(i));
+    }
+
     /**
      * Metoda de asteptare ca Preloader-ul sa dispara
      */
