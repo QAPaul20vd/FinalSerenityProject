@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 @RunWith(SerenityRunner.class)
 public class LoginTests extends BaseTest {
 
-
     @Steps
     private HomeSteps homeSteps;
 

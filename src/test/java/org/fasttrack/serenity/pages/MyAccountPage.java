@@ -111,17 +111,17 @@ public class MyAccountPage extends BasePage {
      */
 
     public void clickLeftLogoutButton() {
-        waitPreloaderDisapear();
+        waitPreloaderDisappear();
         clickOn(leftSideLogoutButton);
     }
 
     public void clickMainLogoutButton() {
-        waitPreloaderDisapear();
+        waitPreloaderDisappear();
         clickOn(myAccountMainLogoutButton);
     }
 
     public void clickRightLogoutButton() {
-        waitPreloaderDisapear();
+        waitPreloaderDisappear();
         clickOn(rightSideMetaLogoutButton);
     }
 
@@ -133,15 +133,15 @@ public class MyAccountPage extends BasePage {
         return regError.containsText("Please provide a valid email address.");
     }
 
-    public boolean regErrorMessageWhenPasswordMissing(){
+    public boolean regErrorMessageWhenPasswordMissing() {
         return regError.containsText("Please enter an account password.");
     }
 
-    public boolean errorMsgWhenTryRegistrationWithAnExistingEmail(){
+    public boolean errorMsgWhenTryRegistrationWithAnExistingEmail() {
         return regError.containsText("An account is already registered with your email address. Please log in.");
     }
 
-    public boolean loginErrorMsgWhenMissingUsername(){
+    public boolean loginErrorMsgWhenMissingUsername() {
         return regError.containsText("Username is required");
     }
 

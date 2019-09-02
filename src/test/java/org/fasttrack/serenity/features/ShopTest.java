@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 @RunWith(SerenityRunner.class)
 public class ShopTest extends BaseTest {
 
-
     @Steps
     private HomeSteps homeSteps;
 
@@ -39,13 +38,24 @@ public class ShopTest extends BaseTest {
     }
 
     @Test
-    public void addToCartOneProdutStep() {
+    public void addToCartOneProdutTest() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
         shopSteps.verifyProductPageIsDisplayed();
         shopSteps.addProductToCartIfInStock();
         shopSteps.verifyProductWasAddedToCart();
+    }
+
+    @Test
+    public void checkNumberOfItemsAndTotalPriceDisplayedInCartTest(){
+        homeSteps.navigateToHomePage();
+        homeSteps.clickShopLink();
+        shopSteps.clickProduct(1);
+        shopSteps.inputQuantity("4");
+        shopSteps.addProductToCartIfInStock();
+        shopSteps.verifyCart();
+
     }
 
 }

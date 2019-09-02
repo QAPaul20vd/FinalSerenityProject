@@ -14,22 +14,22 @@ public class HomeSteps extends PageObject {
     }
 
     @Step
-    public void clickMyAccountLink(){
+    public void clickMyAccountLink() {
         homePage.clickMenuLink("My account");
     }
 
     @Step
-    public void clickCartLink(){
+    public void clickCartLink() {
         homePage.clickMenuLink("Cart");
     }
 
     @Step
-    public void clickShopLink(){
+    public void clickShopLink() {
         homePage.clickMenuLink("Shop");
     }
 
     @Step
-    public void clickCheckoutLink(){
+    public void clickCheckoutLink() {
         homePage.clickMenuLink("Checkout");
     }
 

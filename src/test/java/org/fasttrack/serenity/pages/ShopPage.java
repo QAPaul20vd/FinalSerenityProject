@@ -27,21 +27,21 @@ public class ShopPage extends BasePage {
     @FindBy(css = "main .products .product")
     private List<WebElementFacade> listOfProducts;
 
-    /**
-     * Metode de interactiune
-     */
+//    @FindBy(css = "a[class*=add_to_cart_button]")
+//    private WebElementFacade addToCart;
+
 
     public void selectDropdownValue(String value) {
         sortByDropdown.selectByValue(value);
     }
 
     public void selectOneProduct(int i) {
-        waitPreloaderDisapear();
+        waitPreloaderDisappear();
         clickItemFromList(listOfProducts, i);
     }
 
     /**
-     * Metode de verificare
+     * Verification methods
      */
 
     public boolean verifyAscendingSortingPriceByPrice() {
@@ -49,9 +49,9 @@ public class ShopPage extends BasePage {
         do {
             List<Boolean> list = new ArrayList<>();
             for (int i = 0; i < listOfAscendingPrices.size() - 1; i++) {
-                if (getIntPrice(listOfAscendingPrices.get(i).getText()) <= getIntPrice(listOfAscendingPrices.get(i + 1).getText())) {
+                if (getIntValue(listOfAscendingPrices.get(i).getText()) <= getIntValue(listOfAscendingPrices.get(i + 1).getText())) {
                     list.add(true);
-                } else if (getIntPrice(listOfAscendingPrices.get(i).getText()) > getIntPrice(listOfAscendingPrices.get(i + 1).getText())) {
+                } else if (getIntValue(listOfAscendingPrices.get(i).getText()) > getIntValue(listOfAscendingPrices.get(i + 1).getText())) {
                     list.add(false);
                 }
             }
@@ -70,9 +70,9 @@ public class ShopPage extends BasePage {
         do {
             List<Boolean> list = new ArrayList<>();
             for (int i = 0; i < listOfDescendingPrices.size() - 1; i++) {
-                if (getIntPrice(listOfDescendingPrices.get(i).getText()) >= getIntPrice(listOfDescendingPrices.get(i + 1).getText())) {
+                if (getIntValue(listOfDescendingPrices.get(i).getText()) >= getIntValue(listOfDescendingPrices.get(i + 1).getText())) {
                     list.add(true);
-                } else if (getIntPrice(listOfDescendingPrices.get(i).getText()) < getIntPrice(listOfDescendingPrices.get(i + 1).getText())) {
+                } else if (getIntValue(listOfDescendingPrices.get(i).getText()) < getIntValue(listOfDescendingPrices.get(i + 1).getText())) {
                     list.add(false);
                 }
             }
@@ -85,4 +85,5 @@ public class ShopPage extends BasePage {
         } while (nextPageButton.isCurrentlyVisible());
         return true;
     }
+
 }

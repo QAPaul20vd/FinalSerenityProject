@@ -44,18 +44,27 @@ public class ShopSteps extends PageObject {
     @Step
     public void addProductToCartIfInStock() {
 
-        if (productPage.checkProductStock())
-            return;
-        else
+        if (!productPage.checkProductStock())
             productPage.clickAddToCartButton();
     }
 
     @Step
     public void verifyProductWasAddedToCart() {
-        if (productPage.checkProductStock())
-            return;
-        else
+        if (!productPage.checkProductStock())
             Assert.assertTrue(productPage.verifyProductWasAddedToCart());
     }
+
+    @Step
+    public void inputQuantity(String quantity) {
+        if (!productPage.checkProductStock())
+            productPage.setQuantity(quantity);
+    }
+
+    @Step
+    public void verifyCart(){
+        Assert.assertTrue(productPage.verifyQuantityAndTotalPriceOfProductsAddedToCart());
+    }
+
+
 
 }

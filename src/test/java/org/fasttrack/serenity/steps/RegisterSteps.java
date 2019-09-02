@@ -30,7 +30,7 @@ public class RegisterSteps extends PageObject {
     }
 
     @Step
-    public void verifyErrorDisplayedIfRegistrationWithAnExistingEmail(){
+    public void verifyErrorDisplayedIfRegistrationWithAnExistingEmail() {
         Assert.assertTrue("Registration was not done!", myAccountPage.errorMsgWhenTryRegistrationWithAnExistingEmail());
     }
 

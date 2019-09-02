@@ -27,17 +27,17 @@ public class LoginSteps extends PageObject {
     }
 
     @Step
-    public void performLeftLogout(){
+    public void performLeftLogout() {
         myAccountPage.clickLeftLogoutButton();
     }
 
     @Step
-    public void performMainLogout(){
+    public void performMainLogout() {
         myAccountPage.clickMainLogoutButton();
     }
 
     @Step
-    public void verifyLogoutSuccessful(){
+    public void verifyLogoutSuccessful() {
         Assert.assertTrue(myAccountPage.verifyLogoutDone());
     }
 }

@@ -3,6 +3,7 @@ package org.fasttrack.serenity.pages;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
+
 import java.util.List;
 
 @DefaultUrl("http://qa1.fasttrackit.org:8008/")
@@ -30,6 +31,8 @@ public class HomePage extends BasePage {
     @FindBy(css = "li[id*=menu]")
     private List<WebElementFacade> listOfMenuLinks;
 
+
+
     @FindBy(css = "div.preloader")
     private WebElementFacade preloader;
 
@@ -38,19 +41,22 @@ public class HomePage extends BasePage {
      */
 
 //    public void clickHomeLink() {
-//        waitPreloaderDisapear();
+//        waitPreloaderDisappear();
 //        clickOn(homeLink);
 //    }
 //
 //    public void clickCheckoutLink() {
-//        waitPreloaderDisapear();
+//        waitPreloaderDisappear();
 //        clickOn(checkoutLink);
 //    }
-
     public void clickMenuLink(String item) {
-        waitPreloaderDisapear();
+        waitPreloaderDisappear();
         clickItemFromList(listOfMenuLinks, item);
     }
+
+
+
+
 
 
 }
