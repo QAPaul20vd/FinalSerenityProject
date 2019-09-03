@@ -43,12 +43,25 @@ public class CartPage extends BasePage {
     @FindBy(css = "div[role=alert]")
     private WebElementFacade infoMessage;
 
+    @FindBy(css = ".cart-empty")
+    private WebElementFacade cartEmptyMessage;
+
     public void clickRemoveItemFromCart(int item){
         clickItemFromList(listOfProductsInCart, item);
     }
 
     public int getNumbersOfItemsInCart(){
         return listOfProductsInCart.size();
+    }
+
+    public boolean verifyCartIsEmptyAfterRemoveLastProduct(){
+        waitPreloaderDisappear();
+        return cartEmptyMessage.containsText("Your cart is currently empty.");
+    }
+
+    public String getCartNameOfProduct(){
+        waitPreloaderDisappear();
+        return productName.getText().toUpperCase();
     }
 
 

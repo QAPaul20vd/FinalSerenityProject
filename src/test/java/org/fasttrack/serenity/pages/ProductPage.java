@@ -5,6 +5,9 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class ProductPage extends BasePage {
 
+    @FindBy(css = ".product_title")
+    private WebElementFacade nameOfProduct;
+
     @FindBy(css = ".summary ins span.amount")
     private WebElementFacade actualPrice;
 
@@ -38,6 +41,12 @@ public class ProductPage extends BasePage {
 
     public int getIntActualPrice() {
         return getIntValue(actualPrice.getText());
+    }
+
+    public String getPageNameOfProduct(){
+        waitPreloaderDisappear();
+        System.out.println(nameOfProduct.getText().toUpperCase());
+        return nameOfProduct.getText().toUpperCase();
     }
 
     public void setQuantity(String quantity) {

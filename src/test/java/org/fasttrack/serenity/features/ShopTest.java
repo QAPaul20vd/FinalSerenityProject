@@ -4,6 +4,7 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import org.fasttrack.serenity.Utils.Constants;
 import org.fasttrack.serenity.steps.HomeSteps;
+import org.fasttrack.serenity.steps.ProductSteps;
 import org.fasttrack.serenity.steps.RegisterSteps;
 import org.fasttrack.serenity.steps.ShopSteps;
 import org.junit.Test;
@@ -20,6 +21,9 @@ public class ShopTest extends BaseTest {
 
     @Steps
     private ShopSteps shopSteps;
+
+    @Steps
+    private ProductSteps productSteps;
 
     @Test
     public void sortByPriceAscendingTest() {
@@ -42,9 +46,9 @@ public class ShopTest extends BaseTest {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
-        shopSteps.verifyProductPageIsDisplayed();
-        shopSteps.addProductToCartIfInStock();
-        shopSteps.verifyProductWasAddedToCart();
+        productSteps.verifyProductPageIsDisplayed();
+        productSteps.addProductToCartIfInStock();
+        productSteps.verifyProductWasAddedToCart();
     }
 
     @Test
@@ -52,9 +56,9 @@ public class ShopTest extends BaseTest {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(1);
-        shopSteps.inputQuantity("4");
-        shopSteps.addProductToCartIfInStock();
-        shopSteps.verifyCart();
+        productSteps.inputQuantity("4");
+        productSteps.addProductToCartIfInStock();
+        productSteps.verifyCart();
 
     }
 

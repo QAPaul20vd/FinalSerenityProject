@@ -1,5 +1,6 @@
 package org.fasttrack.serenity.pages;
 
+import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -84,6 +85,21 @@ public class ShopPage extends BasePage {
             clickOn(nextPageButton);
         } while (nextPageButton.isCurrentlyVisible());
         return true;
+    }
+
+    public void addMoreProductsToCart() {
+
+        List<WebElementFacade> toCartList = new ArrayList<>();
+        for (WebElementFacade item : listOfProducts) {
+            if (item.findElement(By.cssSelector("a.button")).getText().equals("Add to cart")) {
+                toCartList.add(item);
+            }
+        }
+
+        for (WebElementFacade itemToCart : toCartList) {
+            waitPreloaderDisappear();
+            clickOn(itemToCart.findElement(By.cssSelector("a.button")));
+        }
     }
 
 }
