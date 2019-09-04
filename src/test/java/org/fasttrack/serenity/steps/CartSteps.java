@@ -12,12 +12,28 @@ public class CartSteps extends PageObject {
     private ProductPage productPage;
 
     @Step
-    public void viewCartAfterAddingProduct(){
+    public void viewCartAfterAddingProduct() {
         productPage.clickViewCartButton();
     }
 
-//    @Step
-//    public void verifyNameOfProductInCart(){
-//        Assert.assertTrue(productPage.getPageNameOfProduct().equals(cartPage.getCartNameOfProduct()));
-//    }
+    @Step
+    public void verifyCalculationOfSubTotalPrice() {
+        Assert.assertTrue("SubTotal is not correct!", cartPage.verifySubTotalPriceOneProduct());
+    }
+
+    @Step
+    public void setQuantityOfProduct(String qty) {
+        cartPage.setQuantity(qty);
+    }
+
+    @Step
+    public void verifyCartTotal() {
+        Assert.assertTrue("Cart Total is not correct!", cartPage.verifyCartTotalOneProduct());
+    }
+
+    @Step
+    public void verifyCartTotalMoreItems(){
+        Assert.assertTrue("Cart Total is not correct when multiple items!",cartPage.verifyCartTotalMultipleProducts());
+    }
+
 }

@@ -25,13 +25,26 @@ public class CartTests extends BaseTest {
     private ProductSteps productSteps;
 
     @Test
-    public void viewCartAfterAddingOneProductTest(){
+    public void verifySubTotalAndTotalCartForOneProductTest(){
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
         productSteps.addProductToCartIfInStock();
         cartSteps.viewCartAfterAddingProduct();
-//        cartSteps.verifyNameOfProductInCart();
+        cartSteps.verifyCalculationOfSubTotalPrice();
+        cartSteps.verifyCartTotal();
+    }
+
+    @Test
+    public void verifySubTotalAndTotalCartForOneProductWithModifiedQuantityTest(){
+        homeSteps.navigateToHomePage();
+        homeSteps.clickShopLink();
+        shopSteps.clickProduct(4);
+        productSteps.addProductToCartIfInStock();
+        cartSteps.viewCartAfterAddingProduct();
+        cartSteps.setQuantityOfProduct("3");
+        cartSteps.verifyCalculationOfSubTotalPrice();
+        cartSteps.verifyCartTotal();
     }
 
     @Test
@@ -40,6 +53,7 @@ public class CartTests extends BaseTest {
         homeSteps.clickShopLink();
         shopSteps.addAllProductsToCart();
         homeSteps.clickCartLink();
+        cartSteps.verifyCartTotalMoreItems();
     }
 
 }

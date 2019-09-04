@@ -2,6 +2,7 @@ package org.fasttrack.serenity.pages;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
 
 import java.util.List;
 
@@ -46,22 +47,64 @@ public class CartPage extends BasePage {
     @FindBy(css = ".cart-empty")
     private WebElementFacade cartEmptyMessage;
 
-    public void clickRemoveItemFromCart(int item){
+    public void clickRemoveItemFromCart(int item) {
         clickItemFromList(listOfProductsInCart, item);
     }
 
-    public int getNumbersOfItemsInCart(){
+    public int getNumbersOfItemsInCart() {
         return listOfProductsInCart.size();
     }
 
-    public boolean verifyCartIsEmptyAfterRemoveLastProduct(){
+    public boolean verifyCartIsEmptyAfterRemoveLastProduct() {
         waitPreloaderDisappear();
         return cartEmptyMessage.containsText("Your cart is currently empty.");
     }
 
-    public String getCartNameOfProduct(){
+    public String getCartNameOfProduct() {
         waitPreloaderDisappear();
         return productName.getText().toUpperCase();
+    }
+
+    /**
+     * Methods for one item in cart
+     */
+
+
+    public int calculateSubTotalPriceOneProduct() {
+        waitPreloaderDisappear();
+        return getIntValue(productPrice.getText()) * getIntValue(quantityField.getValue());
+    }
+
+    public boolean verifySubTotalPriceOneProduct() {
+        waitPreloaderDisappear();
+        return calculateSubTotalPriceOneProduct() == getIntValue(eachProductSubtotal.getText());
+    }
+
+    public void setQuantity(String qty) {
+        waitPreloaderDisappear();
+        quantityField.clear();
+        quantityField.type(qty);
+        clickOn(updateCart);
+    }
+
+    public boolean verifyCartTotalOneProduct() {
+        waitPreloaderDisappear();
+        return getIntValue(eachProductSubtotal.getText()) == getIntValue(cartTotal.getText());
+    }
+
+    /**
+     * Methods for multiple items in cart
+     */
+
+    public boolean verifyCartTotalMultipleProducts() {
+
+        int sumOfSubTotals = 0;
+        for (WebElementFacade item : listOfProductsInCart) {
+            int intItemPrice = getIntValue(item.findElement(By.cssSelector(".product-subtotal")).getText());
+            sumOfSubTotals += intItemPrice;
+        }
+
+        return sumOfSubTotals == getIntValue(cartTotal.getText());
     }
 
 
