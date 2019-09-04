@@ -3,6 +3,8 @@ package org.fasttrack.serenity.pages;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class CartPage extends BasePage {
     @FindBy(css = ".cart_item")
     private List<WebElementFacade> listOfProductsInCart;
 
-    @FindBy(css = "tbody .product-remove")
+    @FindBy(css = "a.remove")
     private WebElementFacade removeButton;
 
     @FindBy(css = "tbody .product-name")
@@ -47,9 +49,6 @@ public class CartPage extends BasePage {
     @FindBy(css = ".cart-empty")
     private WebElementFacade cartEmptyMessage;
 
-    public void clickRemoveItemFromCart(int item) {
-        clickItemFromList(listOfProductsInCart, item);
-    }
 
     public int getNumbersOfItemsInCart() {
         return listOfProductsInCart.size();
@@ -92,6 +91,11 @@ public class CartPage extends BasePage {
         return getIntValue(eachProductSubtotal.getText()) == getIntValue(cartTotal.getText());
     }
 
+    public void removeItemFromCart() {
+        waitPreloaderDisappear();
+        clickOn(removeButton);
+    }
+
     /**
      * Methods for multiple items in cart
      */
@@ -106,6 +110,29 @@ public class CartPage extends BasePage {
 
         return sumOfSubTotals == getIntValue(cartTotal.getText());
     }
+
+//    public void removeItemFromCartMoreItems() {
+//
+//        getNumbersOfItemsInCart();
+//        System.out.println(getNumbersOfItemsInCart());
+//
+//        for (WebElementFacade item : listOfProductsInCart) {
+//
+//            try {
+//                waitPreloaderDisappear();
+//                WebElement itemOut = item.findElement(By.cssSelector("a.remove"));
+//                clickOn(itemOut);
+//            } catch (StaleElementReferenceException ex) {
+//                waitPreloaderDisappear();
+//                WebElement itemOut = item.findElement(By.cssSelector("a.remove"));
+//                clickOn(itemOut);
+//            }
+//        }
+//
+//        System.out.println(getNumbersOfItemsInCart());
+//
+//
+//    }
 
 
 }

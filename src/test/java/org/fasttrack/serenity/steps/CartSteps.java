@@ -32,8 +32,23 @@ public class CartSteps extends PageObject {
     }
 
     @Step
-    public void verifyCartTotalMoreItems(){
-        Assert.assertTrue("Cart Total is not correct when multiple items!",cartPage.verifyCartTotalMultipleProducts());
+    public void verifyCartTotalMoreItems() {
+        Assert.assertTrue("Cart Total is not correct when multiple items!", cartPage.verifyCartTotalMultipleProducts());
+    }
+
+//    @Step
+//    public void checkItemWasRemovedFromCartMoreItems() {
+//        cartPage.removeItemFromCartMoreItems();
+//    }
+
+    @Step
+    public void removeOneItemFromCart() {
+        cartPage.removeItemFromCart();
+    }
+
+    @Step
+    public void verifyCartIsEmptyAfterRemoveLastProduct() {
+        Assert.assertTrue(cartPage.verifyCartIsEmptyAfterRemoveLastProduct());
     }
 
 }

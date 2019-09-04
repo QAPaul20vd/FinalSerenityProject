@@ -56,4 +56,24 @@ public class CartTests extends BaseTest {
         cartSteps.verifyCartTotalMoreItems();
     }
 
+//    @Test
+//    public void removeItemFromCartWithMultipleProductsTest(){
+//        homeSteps.navigateToHomePage();
+//        homeSteps.clickShopLink();
+//        shopSteps.addAllProductsToCart();
+//        homeSteps.clickCartLink();
+//        cartSteps.checkItemWasRemovedFromCartMoreItems();
+//    }
+
+    @Test
+    public void removeProductFromCartOneProductTest(){
+        homeSteps.navigateToHomePage();
+        homeSteps.clickShopLink();
+        shopSteps.clickProduct(4);
+        productSteps.addProductToCartIfInStock();
+        cartSteps.viewCartAfterAddingProduct();
+        cartSteps.removeOneItemFromCart();
+        cartSteps.verifyCartIsEmptyAfterRemoveLastProduct();
+    }
+
 }
