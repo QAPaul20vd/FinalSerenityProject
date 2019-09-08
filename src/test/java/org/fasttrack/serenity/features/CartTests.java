@@ -25,7 +25,7 @@ public class CartTests extends BaseTest {
     private ProductSteps productSteps;
 
     @Test
-    public void verifySubTotalAndTotalCartForOneProductTest(){
+    public void verifySubTotalAndTotalCartForOneProductTest() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
@@ -36,7 +36,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void verifySubTotalAndTotalCartForOneProductWithModifiedQuantityTest(){
+    public void verifySubTotalAndTotalCartForOneProductWithModifiedQuantityTest() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
@@ -48,7 +48,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void cartWithMultipleProductsTest(){
+    public void verifyCartTotalWithMultipleProductsTest() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.addAllProductsToCart();
@@ -56,17 +56,26 @@ public class CartTests extends BaseTest {
         cartSteps.verifyCartTotalMoreItems();
     }
 
-//    @Test
-//    public void removeItemFromCartWithMultipleProductsTest(){
-//        homeSteps.navigateToHomePage();
-//        homeSteps.clickShopLink();
-//        shopSteps.addAllProductsToCart();
-//        homeSteps.clickCartLink();
-//        cartSteps.checkItemWasRemovedFromCartMoreItems();
-//    }
+    @Test
+    public void removeItemsFromCartWithMultipleProductsTest() {
+        homeSteps.navigateToHomePage();
+        homeSteps.clickShopLink();
+        shopSteps.addAllProductsToCart();
+        homeSteps.clickCartLink();
+        cartSteps.checkItemsWereRemovedFromCartMoreItems(2);
+    }
 
     @Test
-    public void removeProductFromCartOneProductTest(){
+    public void checkCartTotalAfterRemoveItemsFromCartWithMultipleProductsTest() {
+        homeSteps.navigateToHomePage();
+        homeSteps.clickShopLink();
+        shopSteps.addAllProductsToCart();
+        homeSteps.clickCartLink();
+        cartSteps.verifyCartTotalAfterRemovingProducts(3);
+    }
+
+    @Test
+    public void removeProductFromCartOneProductAndVerifyCartIsEmptyTest() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
@@ -76,4 +85,15 @@ public class CartTests extends BaseTest {
         cartSteps.verifyCartIsEmptyAfterRemoveLastProduct();
     }
 
+    @Test
+    public void removeRestoreOneProductInCartTest() {
+        homeSteps.navigateToHomePage();
+        homeSteps.clickShopLink();
+        shopSteps.clickProduct(4);
+        productSteps.addProductToCartIfInStock();
+        cartSteps.viewCartAfterAddingProduct();
+        cartSteps.removeOneItemFromCart();
+        cartSteps.restoreItemInCartAfterRemoving();
+        cartSteps.verifyNameOfProductRestored();
+    }
 }

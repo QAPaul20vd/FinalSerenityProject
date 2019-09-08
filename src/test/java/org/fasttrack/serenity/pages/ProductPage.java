@@ -34,18 +34,18 @@ public class ProductPage extends BasePage {
         clickOn(addToCartButton);
     }
 
-    public void clickViewCartButton(){
+    public void clickViewCartButton() {
         waitPreloaderDisappear();
         clickOn(viewCartButton);
     }
 
     public int getIntActualPrice() {
+        waitPreloaderDisappear();
         return getIntValue(actualPrice.getText());
     }
 
-    public String getPageNameOfProduct(){
+    public String getPageNameOfProduct() {
         waitPreloaderDisappear();
-        System.out.println(nameOfProduct.getText().toUpperCase());
         return nameOfProduct.getText().toUpperCase();
     }
 

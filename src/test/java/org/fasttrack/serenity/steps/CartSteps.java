@@ -36,10 +36,10 @@ public class CartSteps extends PageObject {
         Assert.assertTrue("Cart Total is not correct when multiple items!", cartPage.verifyCartTotalMultipleProducts());
     }
 
-//    @Step
-//    public void checkItemWasRemovedFromCartMoreItems() {
-//        cartPage.removeItemFromCartMoreItems();
-//    }
+    @Step
+    public void checkItemsWereRemovedFromCartMoreItems(int noOfItemsRemoved) {
+        Assert.assertTrue("Some items were not removed!", cartPage.checkNoOfItemsInCartAfterRemove(noOfItemsRemoved));
+    }
 
     @Step
     public void removeOneItemFromCart() {
@@ -48,7 +48,24 @@ public class CartSteps extends PageObject {
 
     @Step
     public void verifyCartIsEmptyAfterRemoveLastProduct() {
-        Assert.assertTrue(cartPage.verifyCartIsEmptyAfterRemoveLastProduct());
+        Assert.assertTrue("Cart is not empty!", cartPage.verifyCartIsEmptyAfterRemoveLastProduct());
     }
+
+    @Step
+    public void restoreItemInCartAfterRemoving() {
+        cartPage.clickUndo();
+    }
+
+    @Step
+    public void verifyNameOfProductRestored() {
+        String productName = cartPage.getCartNameOfProduct();
+        Assert.assertTrue("The restored product is not the same!", cartPage.verifyNames(productName));
+    }
+
+    @Step
+    public void verifyCartTotalAfterRemovingProducts(int itemsRemoved) {
+        Assert.assertTrue("Cart total is not correct!", cartPage.verifyCartTotalAfterRemovingSomeProducts(itemsRemoved));
+    }
+
 
 }
