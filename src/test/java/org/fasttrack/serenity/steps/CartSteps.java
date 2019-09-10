@@ -67,5 +67,21 @@ public class CartSteps extends PageObject {
         Assert.assertTrue("Cart total is not correct!", cartPage.verifyCartTotalAfterRemovingSomeProducts(itemsRemoved));
     }
 
+    @Step
+    public void applyCouponToOrder(String coupon) {
+        cartPage.setCoupon(coupon);
+        cartPage.clickApplyCouponButton();
+    }
+
+    @Step
+    public void verifyCartTotalWithValidCoupon() {
+        Assert.assertTrue("Valid coupon calculation is not correct!", cartPage.verifyValidCouponCalculation());
+    }
+
+    @Step
+    public void verifyCartTotalWithInvalidCoupon(String coupon) {
+        Assert.assertTrue("Invalid coupon calculation is not correct!", cartPage.verifyInvalidCouponCalculation(coupon));
+    }
+
 
 }

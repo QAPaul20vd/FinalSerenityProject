@@ -96,4 +96,29 @@ public class CartTests extends BaseTest {
         cartSteps.restoreItemInCartAfterRemoving();
         cartSteps.verifyNameOfProductRestored();
     }
+
+    @Test
+    public void applyValidCouponToCartTest(){
+        homeSteps.navigateToHomePage();
+        homeSteps.clickShopLink();
+        shopSteps.clickProduct(4);
+        productSteps.addProductToCartIfInStock();
+        cartSteps.viewCartAfterAddingProduct();
+        cartSteps.setQuantityOfProduct("5");
+        cartSteps.applyCouponToOrder("promo30");
+        cartSteps.verifyCartTotalWithValidCoupon();
+    }
+
+    @Test
+    public void applyInvalidCouponToCartTest(){
+        homeSteps.navigateToHomePage();
+        homeSteps.clickShopLink();
+        shopSteps.clickProduct(4);
+        productSteps.addProductToCartIfInStock();
+        cartSteps.viewCartAfterAddingProduct();
+        cartSteps.setQuantityOfProduct("5");
+        cartSteps.applyCouponToOrder("promo");
+        cartSteps.verifyCartTotalWithInvalidCoupon("promo");
+    }
+
 }

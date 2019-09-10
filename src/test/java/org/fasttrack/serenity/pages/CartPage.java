@@ -5,7 +5,9 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.nio.file.WatchEvent;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class CartPage extends BasePage {
 
@@ -33,6 +35,9 @@ public class CartPage extends BasePage {
     @FindBy(name = "apply_coupon")
     private WebElementFacade applyCouponButton;
 
+    @FindBy(css = ".cart-discount .amount")
+    private WebElementFacade discountDisplayed;
+
     @FindBy(name = "update_cart")
     private WebElementFacade updateCart;
 
@@ -44,6 +49,9 @@ public class CartPage extends BasePage {
 
     @FindBy(css = "div[role=alert]")
     private WebElementFacade infoMessage;
+
+    @FindBy(css = "ul[role=alert] li")
+    private WebElementFacade infoErrorMsg;
 
     @FindBy(css = ".cart-empty")
     private WebElementFacade cartEmptyMessage;
@@ -78,7 +86,6 @@ public class CartPage extends BasePage {
     /**
      * Methods for one item in cart
      */
-
 
     public int calculateSubTotalPriceOneProduct() {
         waitPreloaderDisappear();
@@ -165,5 +172,51 @@ public class CartPage extends BasePage {
         return finalCartTotal == (initCartTotal - sumPricesRemoved);
     }
 
+    /**
+     * Methods for coupon
+     */
+
+    public void setCoupon(String coupon) {
+        waitPreloaderDisappear();
+        typeInto(couponField, coupon);
+    }
+
+    public void clickApplyCouponButton() {
+        waitPreloaderDisappear();
+        clickOn(applyCouponButton);
+    }
+
+    private boolean checkSuccessfulCouponMessage() {
+        waitPreloaderDisappear();
+        return infoMessage.containsOnlyText("Coupon code applied successfully.");
+    }
+
+    public boolean checkInvalidCouponMessage(String coupon) {
+        waitPreloaderDisappear();
+        return infoErrorMsg.containsOnlyText("Coupon \"" + coupon + "\" does not exist!");
+    }
+
+    /*
+    * Coupon name: coupon30
+    * Coupon discount: 30% off to hole cart
+    * Coupon limits: minimum spent: 50 lei;
+    *                it cannot be used in conjunction with other coupons;
+    *                unlimited usage;
+    * */
+
+    public boolean verifyValidCouponCalculation() {
+        if (checkSuccessfulCouponMessage()) {
+            int calculatedDiscount = (getIntValue(grandSubtotal.getText()) * 30) / 100;
+            if (calculatedDiscount == getIntValue(discountDisplayed.getText()))
+                return getIntValue(cartTotal.getText()) == getIntValue(grandSubtotal.getText()) - getIntValue(discountDisplayed.getText());
+        }
+        return false;
+    }
+
+    public boolean verifyInvalidCouponCalculation(String coupon) {
+        if (checkInvalidCouponMessage(coupon))
+            return getIntValue(grandSubtotal.getText()) == getIntValue(cartTotal.getText());
+        return false;
+    }
 
 }
