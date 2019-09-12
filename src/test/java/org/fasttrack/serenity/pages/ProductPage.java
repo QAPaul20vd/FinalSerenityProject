@@ -69,10 +69,12 @@ public class ProductPage extends BasePage {
     }
 
     public boolean verifyProductWasAddedToCart() {
+        waitPreloaderDisappear();
         return productAddedToCartMessage.isCurrentlyVisible();
     }
 
     public boolean verifyQuantityAndTotalPriceOfProductsAddedToCart() {
+        waitPreloaderDisappear();
         return itemsInCart() == getIntValue(inputQtyBox.getValue()) &&
                 priceInCart() == getIntActualPrice() * getIntValue(inputQtyBox.getValue());
     }

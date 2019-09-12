@@ -3,9 +3,14 @@ package org.fasttrack.serenity.pages;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 public class ShopPage extends BasePage {
 
@@ -14,6 +19,7 @@ public class ShopPage extends BasePage {
 
     @FindBy(css = ".next")
     private WebElementFacade nextPageButton;
+
 
     //    Selecteaza pretul actual(cu reducere, unde e cazul) din produse simple (negrupate),
 //    si primul pret dintr-un interval
@@ -25,12 +31,12 @@ public class ShopPage extends BasePage {
     @FindBy(css = "main li:not(.product-type-grouped) .price > .amount:last-child, main .price > ins .amount")
     private List<WebElementFacade> listOfDescendingPrices;
 
-    @FindBy(css = "main .products .product")
+    @FindBy(css = "main .product")
     private List<WebElementFacade> listOfProducts;
 
-//    @FindBy(css = "a[class*=add_to_cart_button]")
-//    private WebElementFacade addToCart;
-
+    /**
+     * Select methods
+     */
 
     public void selectDropdownValue(String value) {
         sortByDropdown.selectByValue(value);
@@ -45,46 +51,43 @@ public class ShopPage extends BasePage {
      * Verification methods
      */
 
-    public boolean verifyAscendingSortingPriceByPrice() {
+    private boolean verifyAscendingSortingByPricePerPage(List<WebElementFacade> list) {
 
-        do {
-            List<Boolean> list = new ArrayList<>();
-            for (int i = 0; i < listOfAscendingPrices.size() - 1; i++) {
-                if (getIntValue(listOfAscendingPrices.get(i).getText()) <= getIntValue(listOfAscendingPrices.get(i + 1).getText())) {
-                    list.add(true);
-                } else if (getIntValue(listOfAscendingPrices.get(i).getText()) > getIntValue(listOfAscendingPrices.get(i + 1).getText())) {
-                    list.add(false);
-                }
-            }
-            for (Boolean item : list) {
-                if (!item) {
+        for (int i = 0; i < list.size() - 1; i++)
+            for (int j = i + 1; j < list.size(); j++)
+                if (getIntValue(list.get(i).getText()) > getIntValue(list.get(j).getText()))
                     return false;
-                }
-            }
-            clickOn(nextPageButton);
-        } while (nextPageButton.isCurrentlyVisible());
         return true;
     }
 
-    public boolean verifyDescendingSortingPriceByPrice() {
+    public boolean verifyAscendingSortingPriceByPriceAllPages() {
 
         do {
-            List<Boolean> list = new ArrayList<>();
-            for (int i = 0; i < listOfDescendingPrices.size() - 1; i++) {
-                if (getIntValue(listOfDescendingPrices.get(i).getText()) >= getIntValue(listOfDescendingPrices.get(i + 1).getText())) {
-                    list.add(true);
-                } else if (getIntValue(listOfDescendingPrices.get(i).getText()) < getIntValue(listOfDescendingPrices.get(i + 1).getText())) {
-                    list.add(false);
-                }
-            }
-            for (Boolean item : list) {
-                if (!item) {
-                    return false;
-                }
-            }
+            if (!verifyAscendingSortingByPricePerPage(listOfAscendingPrices))
+                return false;
             clickOn(nextPageButton);
         } while (nextPageButton.isCurrentlyVisible());
+
+        return verifyAscendingSortingByPricePerPage(listOfAscendingPrices);
+    }
+
+    private boolean verifyDescendingSortingByPricePerPage(List<WebElementFacade> list) {
+
+        for (int i = 0; i < list.size() - 1; i++)
+            for (int j = i + 1; j < list.size(); j++)
+                if (getIntValue(list.get(i).getText()) < getIntValue(list.get(j).getText()))
+                    return false;
         return true;
+    }
+
+    public boolean verifyDescendingSortingPriceByPriceAllPages() {
+        do {
+            if (!verifyDescendingSortingByPricePerPage(listOfDescendingPrices))
+                return false;
+            clickOn(nextPageButton);
+        } while (nextPageButton.isCurrentlyVisible());
+
+        return verifyDescendingSortingByPricePerPage(listOfDescendingPrices);
     }
 
     public void addMoreProductsToCart() {
@@ -98,8 +101,42 @@ public class ShopPage extends BasePage {
 
         for (WebElementFacade itemToCart : toCartList) {
             waitPreloaderDisappear();
-            clickOn(itemToCart.findElement(By.cssSelector("a.button")));
+            WebElement addButton = itemToCart.findElement(By.cssSelector("a.button"));
+            try {
+                clickOn(addButton);
+            } catch (ElementClickInterceptedException e) {
+                waitPreloaderDisappear();
+                clickOn(addButton);
+            }
         }
+    }
+
+
+    public List<String> getProductsTitles(String keyword) {
+
+        List<String> listOfTitles = new ArrayList<>();
+        List<WebElement> listOfItems;
+
+        do {
+            listOfItems = getDriver().findElements(By.cssSelector("main .product"));
+
+            for (WebElement item : listOfItems) {
+                String title = item.findElement(By.cssSelector("h2")).getText();
+                if (title.contains(keyword))
+                    listOfTitles.add(title);
+            }
+            clickOn(nextPageButton);
+
+        } while (nextPageButton.isCurrentlyVisible());
+
+        listOfItems = getDriver().findElements(By.cssSelector("main .product"));
+        for (WebElement item : listOfItems) {
+            String title = item.findElement(By.cssSelector("h2")).getText();
+            if (title.contains(keyword))
+                listOfTitles.add(title);
+        }
+
+        return listOfTitles;
     }
 
 }

@@ -23,12 +23,12 @@ public class ShopSteps extends PageObject {
 
     @Step
     public void verifyAscendingSortingPriceByPrice() {
-        Assert.assertTrue("Some products are not sorted!", shopPage.verifyAscendingSortingPriceByPrice());
+        Assert.assertTrue("Some products are not sorted!", shopPage.verifyAscendingSortingPriceByPriceAllPages());
     }
 
     @Step
     public void verifyDescendingSortingPriceByPrice() {
-        Assert.assertTrue("Some products are not sorted!", shopPage.verifyDescendingSortingPriceByPrice());
+        Assert.assertTrue("Some products are not sorted!", shopPage.verifyDescendingSortingPriceByPriceAllPages());
     }
 
     @Step

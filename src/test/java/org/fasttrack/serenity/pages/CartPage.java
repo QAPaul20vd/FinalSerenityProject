@@ -142,8 +142,10 @@ public class CartPage extends BasePage {
 
     public boolean checkNoOfItemsInCartAfterRemove(int noOfItemsRemoved) {
 
+        waitPreloaderDisappear();
         int initSizeOfCart = getNumbersOfItemsInCart();
         removeItemsFromCart(noOfItemsRemoved);
+        waitPreloaderDisappear();
         int finalSizeOfCart = getNumbersOfItemsInCart();
 
         return finalSizeOfCart == initSizeOfCart - noOfItemsRemoved;
