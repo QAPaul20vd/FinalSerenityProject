@@ -1,6 +1,4 @@
 package org.fasttrack.serenity.features;
-
-
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import org.fasttrack.serenity.Utils.Constants;
@@ -9,6 +7,7 @@ import org.fasttrack.serenity.steps.LoginSteps;
 import org.fasttrack.serenity.steps.RegisterSteps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import java.util.Date;
 
 @RunWith(SerenityRunner.class)
 public class RegisterTest extends BaseTest {
@@ -24,10 +23,14 @@ public class RegisterTest extends BaseTest {
 
     @Test
     public void performUserRegistrationTest() {
+
+        Date date = new Date();
+        long timeStamp = date.getTime();
+
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
-        registerSteps.performRegister("testareUser2@mailinator.com", "@Qwerty1234poiu");
-        loginSteps.verifyLoginOrRegistrationSuccessful("testareUser2");
+        registerSteps.performRegister("testareUser" + timeStamp + "@mailinator.com", "@Qwerty1234poiu");
+        loginSteps.verifyLoginOrRegistrationSuccessful("testareUser" + timeStamp);
     }
 
     @Test

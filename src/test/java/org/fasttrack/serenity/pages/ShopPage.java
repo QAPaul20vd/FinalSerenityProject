@@ -118,6 +118,7 @@ public class ShopPage extends BasePage {
         List<WebElement> listOfItems;
 
         do {
+            waitPreloaderDisappear();
             listOfItems = getDriver().findElements(By.cssSelector("main .product"));
 
             for (WebElement item : listOfItems) {
@@ -129,6 +130,7 @@ public class ShopPage extends BasePage {
 
         } while (nextPageButton.isCurrentlyVisible());
 
+        waitPreloaderDisappear();
         listOfItems = getDriver().findElements(By.cssSelector("main .product"));
         for (WebElement item : listOfItems) {
             String title = item.findElement(By.cssSelector("h2")).getText();

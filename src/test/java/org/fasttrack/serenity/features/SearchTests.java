@@ -19,7 +19,7 @@ public class SearchTests extends BaseTest {
     private String keyword = "T-Shirt";
 
     @Test
-    public void verifySearchResultsValidKeyword() {
+    public void verifySearchResultsValidKeywordTest() {
         homeSteps.navigateToHomePage();
         searchSteps.searchBy(keyword);
         searchSteps.verifyMatchingKeywordWithSearchHeader(keyword);
@@ -27,17 +27,18 @@ public class SearchTests extends BaseTest {
     }
 
     @Test
-    public void verifySearchResultsInvalidKeyword() {
+    public void verifySearchResultsInvalidKeywordTest() {
         homeSteps.navigateToHomePage();
         searchSteps.searchBy(keyword + "1");
         searchSteps.verifyPageTitleInvalidKeyword();
     }
 
     @Test
-    public void verifyProductsTitles(){
+    public void verifyAllProductsAvailableWereFoundTest() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
-        searchSteps.verifyAllProductsTitle(keyword);
-        searchSteps.searchBy(keyword);
+        searchSteps.verifySearchReturnedAllTitlesAvailable(keyword);
     }
+
+
 }
