@@ -51,4 +51,30 @@ public class CheckoutSteps extends PageObject {
     public void errorMsgIsDisplayed() {
         Assert.assertTrue("Error message is not displayed!", checkoutPage.checkErrorMsgIsDisplayed());
     }
+
+    @Step
+    public void checkIfCheckoutPageIsOpen() {
+        Assert.assertTrue("Checkout page is not loaded!", checkoutPage.verifyCheckoutPage());
+    }
+
+    @Step
+    public void clickCouponLink(){
+        checkoutPage.clickCouponLink();
+    }
+
+    @Step
+    public void addCouponToOrder(String coupon){
+        checkoutPage.setCoupon(coupon);
+        checkoutPage.clickApplyCoupon();
+    }
+
+    @Step
+    public void verifyMessageAfterAddingCoupon(){
+        Assert.assertTrue("Coupon was not applied!", checkoutPage.checkMessageAfterApplyingCoupon());
+    }
+
+    @Step
+    public void verifyCheckoutTotalWithValidCoupon() {
+        Assert.assertTrue("Valid coupon calculation is not correct!", checkoutPage.verifyValidCouponCalculation());
+    }
 }

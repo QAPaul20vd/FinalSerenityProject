@@ -59,6 +59,9 @@ public class CartPage extends BasePage {
     @FindBy(css = ".restore-item")
     private WebElementFacade undoButton;
 
+    @FindBy(css = ".cart_totals a")
+    private WebElementFacade toCheckoutButton;
+
 
     public int getNumbersOfItemsInCart() {
         return listOfProductsInCart.size();
@@ -83,6 +86,10 @@ public class CartPage extends BasePage {
         clickOn(undoButton);
     }
 
+    public void clickCheckoutButton(){
+        waitPreloaderDisappear();
+        clickOn(toCheckoutButton);
+    }
     /**
      * Methods for one item in cart
      */

@@ -75,5 +75,22 @@ public class CheckoutTest extends BaseTest {
         checkoutSteps.validateOrderIsSent();
     }
 
+    @Test
+    public void addCouponToOrderAndVerifyPricesTest(){
+        homeSteps.navigateToHomePage();
+        homeSteps.clickShopLink();
+        shopSteps.clickProduct(2);
+        productSteps.addProductToCartIfInStock();
+        cartSteps.viewCartAfterAddingProduct();
+        cartSteps.setQuantityOfProduct("5");
+        checkoutSteps.clickCheckoutLink();
+        checkoutSteps.clickCouponLink();
+        checkoutSteps.addCouponToOrder("promo30");
+        checkoutSteps.verifyMessageAfterAddingCoupon();
+        checkoutSteps.verifyCheckoutTotalWithValidCoupon();
+
+
+    }
+
 
 }

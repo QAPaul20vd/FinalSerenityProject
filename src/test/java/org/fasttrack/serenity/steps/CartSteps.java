@@ -83,5 +83,10 @@ public class CartSteps extends PageObject {
         Assert.assertTrue("Invalid coupon calculation is not correct!", cartPage.verifyInvalidCouponCalculation(coupon));
     }
 
+    @Step
+    public void proceedToCheckout(){
+        cartPage.clickCheckoutButton();
+    }
+
 
 }

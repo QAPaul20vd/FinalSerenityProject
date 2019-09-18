@@ -2,10 +2,7 @@ package org.fasttrack.serenity.features;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
-import org.fasttrack.serenity.steps.CartSteps;
-import org.fasttrack.serenity.steps.HomeSteps;
-import org.fasttrack.serenity.steps.ProductSteps;
-import org.fasttrack.serenity.steps.ShopSteps;
+import org.fasttrack.serenity.steps.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,6 +20,9 @@ public class CartTests extends BaseTest {
 
     @Steps
     private ProductSteps productSteps;
+
+    @Steps
+    private CheckoutSteps checkoutSteps;
 
     @Test
     public void verifySubTotalAndTotalCartForOneProductTest() {
@@ -119,6 +119,17 @@ public class CartTests extends BaseTest {
         cartSteps.setQuantityOfProduct("5");
         cartSteps.applyCouponToOrder("promo");
         cartSteps.verifyCartTotalWithInvalidCoupon("promo");
+    }
+
+    @Test
+    public void proceedToCheckoutTest() {
+        homeSteps.navigateToHomePage();
+        homeSteps.clickShopLink();
+        shopSteps.clickProduct(4);
+        productSteps.addProductToCartIfInStock();
+        cartSteps.viewCartAfterAddingProduct();
+        cartSteps.proceedToCheckout();
+        checkoutSteps.checkIfCheckoutPageIsOpen();
     }
 
 }

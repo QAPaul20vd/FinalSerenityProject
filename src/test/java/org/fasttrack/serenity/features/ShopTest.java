@@ -42,7 +42,7 @@ public class ShopTest extends BaseTest {
     }
 
     @Test
-    public void addToCartOneProdutTest() {
+    public void addToCartOneProductTest() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);

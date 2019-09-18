@@ -11,6 +11,9 @@ public class CheckoutPage extends BasePage {
      * Selectors pre-order
      */
 
+    @FindBy(css = "main h1")
+    private WebElementFacade mainHeader;
+
     @FindBy(id = "billing_first_name")
     private WebElementFacade firstNameField;
 
@@ -38,6 +41,27 @@ public class CheckoutPage extends BasePage {
     @FindBy(id = "place_order")
     private WebElementFacade placeOrderButton;
 
+    @FindBy(css = ".showcoupon")
+    private WebElementFacade showCouponFieldLink;
+
+    @FindBy(id = "coupon_code")
+    private WebElementFacade couponInputField;
+
+    @FindBy(css = "button[name*=coupon]")
+    private WebElementFacade applyCouponButton;
+
+    @FindBy(css = ".woocommerce-message")
+    private WebElementFacade couponMessage;
+
+    @FindBy(css = ".cart-subtotal .amount")
+    private WebElementFacade grandSubtotal;
+
+    @FindBy(css = ".cart-discount .amount")
+    private WebElementFacade discountDisplayed;
+
+    @FindBy(css = ".order-total .amount")
+    private WebElementFacade orderTotal;
+
     /**
      * Selectors post-order
      */
@@ -51,6 +75,11 @@ public class CheckoutPage extends BasePage {
     /**
      * Methods pre-order
      */
+
+    public boolean verifyCheckoutPage(){
+        waitPreloaderDisappear();
+        return mainHeader.getText().equals("Checkout");
+    }
 
     public void typeFirstName(String firstName) {
         typeInto(firstNameField, firstName);
@@ -89,6 +118,35 @@ public class CheckoutPage extends BasePage {
     public void sendOrder(){
         waitPreloaderDisappear();
         clickOn(placeOrderButton);
+    }
+
+    public void clickCouponLink(){
+        waitPreloaderDisappear();
+        clickOn(showCouponFieldLink);
+    }
+
+    public void setCoupon(String coupon){
+        waitPreloaderDisappear();
+        typeInto(couponInputField, coupon);
+    }
+
+    public void clickApplyCoupon(){
+        waitPreloaderDisappear();
+        clickOn(applyCouponButton);
+    }
+
+    public boolean checkMessageAfterApplyingCoupon(){
+        waitPreloaderDisappear();
+        return couponMessage.getText().equals("Coupon code applied successfully.");
+    }
+
+    public boolean verifyValidCouponCalculation() {
+        if (checkMessageAfterApplyingCoupon()) {
+            int calculatedDiscount = (getIntValue(grandSubtotal.getText()) * 30) / 100;
+            if (calculatedDiscount == getIntValue(discountDisplayed.getText()))
+                return getIntValue(orderTotal.getText()) == getIntValue(grandSubtotal.getText()) - getIntValue(discountDisplayed.getText());
+        }
+        return false;
     }
 
     /**
