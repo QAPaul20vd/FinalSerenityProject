@@ -6,6 +6,9 @@ public class Constants {
     public static final String USER_PASSWORD = "@Qwerty123poiu";
     public static final String USER_NAME = "QAautotest";
 
+    public static final String ADMIN_USERNAME = "admin";
+    public static final String ADMIN_PASSWORD = "parola11";
+
     public static final String SORT_BY_POPULARITY = "popularity";
     public static final String SORT_BY_AVG_RATING = "rating";
     public static final String SORT_BY_NEWNESS = "date";

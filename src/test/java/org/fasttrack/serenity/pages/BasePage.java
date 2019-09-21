@@ -31,6 +31,7 @@ public class BasePage extends PageObject {
     protected void clickItemFromList(List<WebElementFacade> list, String item) {
         for (WebElementFacade element : list) {
             if (element.getText().equals(item)) {
+                waitPreloaderDisappear();
                 clickOn(element);
                 break;
             }
@@ -38,6 +39,7 @@ public class BasePage extends PageObject {
     }
 
     protected void clickItemFromList(List<WebElementFacade> list, int i) {
+        waitPreloaderDisappear();
         clickOn(list.get(i));
     }
 
