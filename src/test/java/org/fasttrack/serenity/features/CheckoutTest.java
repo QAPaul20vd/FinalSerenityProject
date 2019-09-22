@@ -4,10 +4,13 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import org.fasttrack.serenity.Utils.Constants;
 import org.fasttrack.serenity.steps.*;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 @RunWith(SerenityRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CheckoutTest extends BaseTest {
 
     @Steps
@@ -29,7 +32,7 @@ public class CheckoutTest extends BaseTest {
     private CheckoutSteps checkoutSteps;
 
     @Test
-    public void loggedInUserValidCheckoutTest() {
+    public void test1_LoggedInUserValidCheckout() {
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
         loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASSWORD);
@@ -46,7 +49,7 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test
-    public void checkoutLoggedInUserWithoutSomeBillingInformationTest() {
+    public void test2_CheckoutLoggedInUserWithoutSomeBillingInformation() {
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
         loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASSWORD);
@@ -61,7 +64,7 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test
-    public void notLoggedInUserValidCheckoutTest() {
+    public void test3_NotLoggedInUserValidCheckout() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(2);
@@ -76,7 +79,7 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test
-    public void addCouponToOrderAndVerifyPricesTest(){
+    public void test4_AddCouponToOrderAndVerifyPrices(){
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(2);

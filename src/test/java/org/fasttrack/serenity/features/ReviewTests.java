@@ -4,10 +4,13 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import org.fasttrack.serenity.Utils.Constants;
 import org.fasttrack.serenity.steps.*;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 @RunWith(SerenityRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ReviewTests extends BaseTest {
 
     @Steps
@@ -25,21 +28,8 @@ public class ReviewTests extends BaseTest {
     @Steps
     private ReviewSteps reviewSteps;
 
-//    @Test
-//    public void adminLogin(){
-//        adminLoginSteps.navigateToAdminPage();
-//        adminLoginSteps.performAdminLogin();
-//        adminLoginSteps.verifyLoginSuccess();
-//        reviewSteps.navigateToCommentsMenu();
-//        reviewSteps.verifyCommentsPageIsOpen();
-//        reviewSteps.verifyNewCommentIsDisplayed();
-//        reviewSteps.approveNewComment();
-//        reviewSteps.verifyNewCommentWasApproved();
-//        reviewSteps.performAdminLogout();
-//    }
-
     @Test
-    public void guestUserRating(){
+    public void test1_GuestUserRating(){
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(2);
@@ -66,15 +56,17 @@ public class ReviewTests extends BaseTest {
     }
 
     @Test
-    public void loggedInUserRating(){
+    public void test2_LoggedInUserRating(){
+        String reviewText = "I like this product.";
+
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
         loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASSWORD);
         homeSteps.clickShopLink();
-        shopSteps.clickProduct(4);
+        shopSteps.clickProduct(2);
         reviewSteps.clickReviewTab();
         reviewSteps.setRating(2);
-        reviewSteps.insertReviewText("I don't like this product.");
+        reviewSteps.insertReviewText(reviewText);
         reviewSteps.submitReview();
         homeSteps.clickMyAccountLink();
         loginSteps.performLeftLogout();
@@ -89,10 +81,12 @@ public class ReviewTests extends BaseTest {
         reviewSteps.performAdminLogout();
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
-        shopSteps.clickProduct(4);
+        shopSteps.clickProduct(2);
         reviewSteps.clickReviewTab();
         reviewSteps.verifyReviewIsDisplayed(Constants.USER_NAME);
-        reviewSteps.verifyCommentIsDisplayed("I don't like this product.");
+        reviewSteps.verifyCommentIsDisplayed(reviewText);
     }
+
+
 
 }

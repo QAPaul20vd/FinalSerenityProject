@@ -3,10 +3,13 @@ package org.fasttrack.serenity.features;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import org.fasttrack.serenity.steps.*;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 @RunWith(SerenityRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CartTests extends BaseTest {
 
     @Steps
@@ -25,7 +28,7 @@ public class CartTests extends BaseTest {
     private CheckoutSteps checkoutSteps;
 
     @Test
-    public void verifySubTotalAndTotalCartForOneProductTest() {
+    public void test1_VerifySubTotalAndTotalCartForOneProduct() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
@@ -36,7 +39,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void verifySubTotalAndTotalCartForOneProductWithModifiedQuantityTest() {
+    public void test2_VerifySubTotalAndTotalCartForOneProductWithModifiedQuantity() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
@@ -48,7 +51,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void verifyCartTotalWithMultipleProductsTest() {
+    public void test3_VerifyCartTotalWithMultipleProducts() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.addAllProductsToCart();
@@ -57,7 +60,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void removeItemsFromCartWithMultipleProductsTest() {
+    public void test4_RemoveItemsFromCartWithMultipleProducts() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.addAllProductsToCart();
@@ -66,7 +69,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void checkCartTotalAfterRemoveItemsFromCartWithMultipleProductsTest() {
+    public void test5_CheckCartTotalAfterRemoveItemsFromCartWithMultipleProducts() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.addAllProductsToCart();
@@ -75,7 +78,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void removeProductFromCartOneProductAndVerifyCartIsEmptyTest() {
+    public void test6_RemoveProductFromCartOneProductAndVerifyCartIsEmpty() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
@@ -86,7 +89,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void removeRestoreOneProductInCartTest() {
+    public void test7_RemoveRestoreOneProductInCart() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
@@ -98,7 +101,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void applyValidCouponToCartTest(){
+    public void test8_ApplyValidCouponToCart(){
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
@@ -110,7 +113,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void applyInvalidCouponToCartTest(){
+    public void test9_ApplyInvalidCouponToCart(){
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
@@ -122,7 +125,7 @@ public class CartTests extends BaseTest {
     }
 
     @Test
-    public void proceedToCheckoutTest() {
+    public void test10_ProceedToCheckout() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);

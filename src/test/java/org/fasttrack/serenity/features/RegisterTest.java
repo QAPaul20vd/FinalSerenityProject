@@ -5,11 +5,15 @@ import org.fasttrack.serenity.Utils.Constants;
 import org.fasttrack.serenity.steps.HomeSteps;
 import org.fasttrack.serenity.steps.LoginSteps;
 import org.fasttrack.serenity.steps.RegisterSteps;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+
 import java.util.Date;
 
 @RunWith(SerenityRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RegisterTest extends BaseTest {
 
     @Steps
@@ -22,7 +26,7 @@ public class RegisterTest extends BaseTest {
     private LoginSteps loginSteps;
 
     @Test
-    public void performUserRegistrationTest() {
+    public void test1_PerformUserRegistration() {
 
         Date date = new Date();
         long timeStamp = date.getTime();
@@ -34,7 +38,7 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test
-    public void registrationEmptyEmailFieldTest() {
+    public void test2_RegistrationEmptyEmailField() {
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
         registerSteps.performRegister("", Constants.USER_PASSWORD);
@@ -42,7 +46,7 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test
-    public void registrationEmptyPasswordFieldTest() {
+    public void test3_RegistrationEmptyPasswordField() {
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
         registerSteps.performRegister("testareUser@mailinator.com", "");
@@ -50,7 +54,7 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test
-    public void registrationWithExistingEmailTest() {
+    public void test4_RegistrationWithExistingEmail() {
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
         registerSteps.performRegister(Constants.USER_EMAIL, "");

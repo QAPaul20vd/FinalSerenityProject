@@ -6,10 +6,13 @@ import org.fasttrack.serenity.Utils.Constants;
 import org.fasttrack.serenity.steps.HomeSteps;
 import org.fasttrack.serenity.steps.LoginSteps;
 import org.fasttrack.serenity.steps.RegisterSteps;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 @RunWith(SerenityRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginTests extends BaseTest {
 
     @Steps
@@ -22,7 +25,7 @@ public class LoginTests extends BaseTest {
     private LoginSteps loginSteps;
 
     @Test
-    public void validLoginTest() {
+    public void test1_ValidLogin() {
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
         loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASSWORD);
@@ -30,7 +33,7 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void invalidLoginTest() {
+    public void test2_InvalidLogin() {
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
         loginSteps.performLogin("", Constants.USER_PASSWORD);
@@ -38,7 +41,7 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void loginLogoutLeftButtonTest() {
+    public void test3_LoginLogoutLeftButton() {
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
         loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASSWORD);
@@ -47,7 +50,7 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    public void loginLogoutMainButtonTest() {
+    public void test4_LoginLogoutMainButton() {
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
         loginSteps.performLogin(Constants.USER_EMAIL, Constants.USER_PASSWORD);

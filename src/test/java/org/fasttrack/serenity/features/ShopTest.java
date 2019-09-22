@@ -7,10 +7,13 @@ import org.fasttrack.serenity.steps.HomeSteps;
 import org.fasttrack.serenity.steps.ProductSteps;
 import org.fasttrack.serenity.steps.RegisterSteps;
 import org.fasttrack.serenity.steps.ShopSteps;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 @RunWith(SerenityRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ShopTest extends BaseTest {
 
     @Steps
@@ -26,7 +29,7 @@ public class ShopTest extends BaseTest {
     private ProductSteps productSteps;
 
     @Test
-    public void sortByPriceAscendingTest() {
+    public void test1_SortByPriceAscending() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.sortProductsBy(Constants.SORT_BY_PRICE_ASC);
@@ -34,7 +37,7 @@ public class ShopTest extends BaseTest {
     }
 
     @Test
-    public void sortByPriceDescendingTest() {
+    public void test2_SortByPriceDescending() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.sortProductsBy(Constants.SORT_BY_PRICE_DESC);
@@ -42,7 +45,7 @@ public class ShopTest extends BaseTest {
     }
 
     @Test
-    public void addToCartOneProductTest() {
+    public void test3_AddToCartOneProduct() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(4);
@@ -52,7 +55,7 @@ public class ShopTest extends BaseTest {
     }
 
     @Test
-    public void checkNumberOfItemsAndTotalPriceDisplayedInCartTest(){
+    public void test4_CheckNumberOfItemsAndTotalPriceDisplayedInCart(){
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(1);

@@ -35,7 +35,7 @@ public class ProductPage extends BasePage {
      * Review selectors
      */
 
-    @FindBy(css = "a[href=\"#tab-reviews\"]")
+    @FindBy(css = "#tab-title-reviews a")
     private WebElementFacade reviewsTab;
 
     @FindBy(css = ".stars span a")
@@ -95,6 +95,7 @@ public class ProductPage extends BasePage {
 
     public void clickReviewTab() {
         waitPreloaderDisappear();
+        waitABit(1000);
         clickOn(reviewsTab);
     }
 
@@ -131,6 +132,7 @@ public class ProductPage extends BasePage {
 
     public boolean searchForComment(String comment) {
         waitPreloaderDisappear();
+        System.out.println("*" + commentsList.get(commentsList.size() - 1).getText() + "*");
         return commentsList.get(commentsList.size() - 1).getText().equals(comment);
     }
 
