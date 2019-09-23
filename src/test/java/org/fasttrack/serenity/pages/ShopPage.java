@@ -169,7 +169,7 @@ public class ShopPage extends BasePage {
                 listOfTitles.add(title);
         }
 
-        // return the list of titles matchind the given String
+        // return the list of titles matching the given String
         return listOfTitles;
     }
 
