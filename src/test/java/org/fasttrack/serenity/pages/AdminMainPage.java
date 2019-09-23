@@ -8,6 +8,10 @@ import org.openqa.selenium.interactions.Actions;
 
 public class AdminMainPage extends BasePage {
 
+    /**
+     * Admin Selectors
+     */
+
     @FindBy(css = ".ab-top-secondary  > li > a")
     private WebElementFacade welcomeMessage;
 
@@ -20,9 +24,17 @@ public class AdminMainPage extends BasePage {
     @FindBy(css = "tr[class*=unapproved]")
     private WebElementFacade newComment;
 
+    /**
+     * Login method
+     */
+
     public boolean checkAdminLoginSuccessfully() {
         return welcomeMessage.getText().equals("Howdy, admin");
     }
+
+    /**
+     * Comments methods
+     */
 
     public void clickCommentsLink() {
         clickOn(commentsLink);
@@ -47,6 +59,10 @@ public class AdminMainPage extends BasePage {
         WebElement approveComment = getDriver().findElement((By.cssSelector(".approve")));
         action.moveToElement(newCommentRow).click(approveComment).build().perform();
     }
+
+    /**
+     * Logout method
+     */
 
     public void clickLogoutAdminButton() {
         Actions action = new Actions(getDriver());

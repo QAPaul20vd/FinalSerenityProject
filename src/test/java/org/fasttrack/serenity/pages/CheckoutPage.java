@@ -76,7 +76,7 @@ public class CheckoutPage extends BasePage {
      * Methods pre-order
      */
 
-    public boolean verifyCheckoutPage(){
+    public boolean verifyCheckoutPage() {
         waitPreloaderDisappear();
         return mainHeader.getText().equals("Checkout");
     }
@@ -94,48 +94,48 @@ public class CheckoutPage extends BasePage {
         Assert.assertEquals(countryDropdown.getSelectedVisibleTextValue(), country);
     }
 
-    public void typeAddress(String address){
+    public void typeAddress(String address) {
         typeInto(addressField, address);
     }
 
-    public void typeCity(String city){
+    public void typeCity(String city) {
         typeInto(cityField, city);
     }
 
-    public void typePostcode(String postcode){
+    public void typePostcode(String postcode) {
         typeInto(postcodeField, postcode);
     }
 
-    public void typePhone(String phone){
+    public void typePhone(String phone) {
         typeInto(phoneField, phone);
     }
 
-    public void typeEmail(String email){
-       if(!emailField.getValue().equals(Constants.USER_EMAIL))
-           typeInto(emailField, email);
+    public void typeEmail(String email) {
+        if (!emailField.getValue().equals(Constants.USER_EMAIL))
+            typeInto(emailField, email);
     }
 
-    public void sendOrder(){
+    public void sendOrder() {
         waitPreloaderDisappear();
         clickOn(placeOrderButton);
     }
 
-    public void clickCouponLink(){
+    public void clickCouponLink() {
         waitPreloaderDisappear();
         clickOn(showCouponFieldLink);
     }
 
-    public void setCoupon(String coupon){
+    public void setCoupon(String coupon) {
         waitPreloaderDisappear();
         typeInto(couponInputField, coupon);
     }
 
-    public void clickApplyCoupon(){
+    public void clickApplyCoupon() {
         waitPreloaderDisappear();
         clickOn(applyCouponButton);
     }
 
-    public boolean checkMessageAfterApplyingCoupon(){
+    public boolean checkMessageAfterApplyingCoupon() {
         waitPreloaderDisappear();
         return couponMessage.getText().equals("Coupon code applied successfully.");
     }
@@ -153,12 +153,12 @@ public class CheckoutPage extends BasePage {
      * Methods post-order
      */
 
-    public boolean orderIsSent(){
+    public boolean orderIsSent() {
         waitPreloaderDisappear();
         return successMsg.containsText("Thank you. Your order has been received.");
     }
 
-    public boolean checkErrorMsgIsDisplayed(){
+    public boolean checkErrorMsgIsDisplayed() {
         waitPreloaderDisappear();
         return errorMsg.isCurrentlyVisible();
     }

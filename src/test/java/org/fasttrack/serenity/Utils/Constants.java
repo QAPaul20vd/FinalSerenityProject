@@ -9,9 +9,6 @@ public class Constants {
     public static final String ADMIN_USERNAME = "admin";
     public static final String ADMIN_PASSWORD = "parola11";
 
-    public static final String SORT_BY_POPULARITY = "popularity";
-    public static final String SORT_BY_AVG_RATING = "rating";
-    public static final String SORT_BY_NEWNESS = "date";
     public static final String SORT_BY_PRICE_ASC = "price";
     public static final String SORT_BY_PRICE_DESC = "price-desc";
 

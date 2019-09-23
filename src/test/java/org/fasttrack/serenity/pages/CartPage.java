@@ -5,9 +5,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.nio.file.WatchEvent;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class CartPage extends BasePage {
 
@@ -86,26 +84,30 @@ public class CartPage extends BasePage {
         clickOn(undoButton);
     }
 
-    public void clickCheckoutButton(){
+    public void clickCheckoutButton() {
         waitPreloaderDisappear();
         clickOn(toCheckoutButton);
     }
+
     /**
      * Methods for one item in cart
      */
 
     public int calculateSubTotalPriceOneProduct() {
         waitPreloaderDisappear();
+        // multiply the price with the quantity
         return getIntValue(productPrice.getText()) * getIntValue(quantityField.getValue());
     }
 
     public boolean verifySubTotalPriceOneProduct() {
         waitPreloaderDisappear();
+        // verify if displayed subtotal is equal to the manual calculation of subtotal
         return calculateSubTotalPriceOneProduct() == getIntValue(eachProductSubtotal.getText());
     }
 
     public boolean verifyCartTotalOneProduct() {
         waitPreloaderDisappear();
+        // verify if displayed total is equal to the product subtotal
         return getIntValue(eachProductSubtotal.getText()) == getIntValue(cartTotal.getText());
     }
 
@@ -130,36 +132,47 @@ public class CartPage extends BasePage {
         int sumOfSubTotals = 0;
         for (WebElementFacade item : listOfProductsInCart) {
             int intItemPrice = getIntValue(item.findElement(By.cssSelector(".product-subtotal")).getText());
+            // calculate all subtotals
             sumOfSubTotals += intItemPrice;
         }
-
+        // verify if the displayed total is equal to the manual calculation of total
         return sumOfSubTotals == getIntValue(cartTotal.getText());
     }
 
+    //method for removing a given number of items from the list of products
     private void removeItemsFromCart(int noOfItems) {
 
         for (int i = 0; i < noOfItems; i++) {
             waitPreloaderDisappear();
+            // get the element from the list
             WebElementFacade item = listOfProductsInCart.get(i);
+            // identify the remove button inside that element
             WebElement itemOut = item.findElement(By.cssSelector("a.remove"));
             waitPreloaderDisappear();
-            clickOn(itemOut);
+            clickOn(itemOut);   // remove the item
         }
     }
 
     public boolean checkNoOfItemsInCartAfterRemove(int noOfItemsRemoved) {
 
+        // get the initial size of Cart
         waitPreloaderDisappear();
         int initSizeOfCart = getNumbersOfItemsInCart();
+
+        // remove the given items
         removeItemsFromCart(noOfItemsRemoved);
+
+        // get the final size of Cart
         waitPreloaderDisappear();
         int finalSizeOfCart = getNumbersOfItemsInCart();
 
+        // verify if the items were removed and the size of Cart is updated
         return finalSizeOfCart == initSizeOfCart - noOfItemsRemoved;
     }
 
     public boolean verifyCartTotalAfterRemovingSomeProducts(int itemsRemoved) {
 
+        // get the cart Total before removing items
         int initCartTotal = getIntValue(cartTotal.getText());
 
         int sumPricesRemoved = 0;
@@ -168,16 +181,19 @@ public class CartPage extends BasePage {
             WebElementFacade item = listOfProductsInCart.get(i);
 
             WebElement itemSubTotal = item.findElement(By.cssSelector(".product-subtotal"));
+            // calculate the total price of removed items
             sumPricesRemoved += getIntValue(itemSubTotal.getText());
 
             WebElement itemOut = item.findElement(By.cssSelector("a.remove"));
             waitPreloaderDisappear();
-            clickOn(itemOut);
+            clickOn(itemOut);       // remove the item
         }
 
+        // get the displayed Cart total after removing the items
         waitPreloaderDisappear();
         int finalCartTotal = getIntValue(cartTotal.getText());
 
+        //verify if the total was correct calculated
         return finalCartTotal == (initCartTotal - sumPricesRemoved);
     }
 
@@ -206,24 +222,30 @@ public class CartPage extends BasePage {
     }
 
     /*
-    * Coupon name: coupon30
-    * Coupon discount: 30% off to hole cart
-    * Coupon limits: minimum spent: 50 lei;
-    *                it cannot be used in conjunction with other coupons;
-    *                unlimited usage;
-    * */
+     * Coupon name: coupon30
+     * Coupon discount: 30% off to hole cart
+     * Coupon limits: minimum spent: 50 lei;
+     *                it cannot be used in conjunction with other coupons;
+     *                unlimited usage;
+     * */
 
     public boolean verifyValidCouponCalculation() {
+        // if a valid coupon was introduced
         if (checkSuccessfulCouponMessage()) {
+            // calculate the discount
             int calculatedDiscount = (getIntValue(grandSubtotal.getText()) * 30) / 100;
+            // if the discount displayed is equal to the calculated one
             if (calculatedDiscount == getIntValue(discountDisplayed.getText()))
+                // the value of the next equation should be true
                 return getIntValue(cartTotal.getText()) == getIntValue(grandSubtotal.getText()) - getIntValue(discountDisplayed.getText());
         }
         return false;
     }
 
     public boolean verifyInvalidCouponCalculation(String coupon) {
+        // if an invalid coupon was introduced
         if (checkInvalidCouponMessage(coupon))
+            // the displayed subtotal should be the same as the cart total
             return getIntValue(grandSubtotal.getText()) == getIntValue(cartTotal.getText());
         return false;
     }

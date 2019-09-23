@@ -11,9 +11,6 @@ import java.util.List;
 @DefaultUrl("http://qa1.fasttrackit.org:8008/")
 public class HomePage extends BasePage {
 
-    /**
-     * Main menu selectors
-     */
 
     @FindBy(css = "li[id*=menu]")
     private List<WebElementFacade> listOfMenuLinks;
@@ -27,9 +24,6 @@ public class HomePage extends BasePage {
     @FindBy(css = "aside label")
     private WebElementFacade searchBox;
 
-    /**
-     * Main menu methods
-     */
 
     public void clickMenuLink(String item) {
         waitPreloaderDisappear();
@@ -40,8 +34,8 @@ public class HomePage extends BasePage {
         typeInto(searchInputField, keyword);
         try {
             Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_ENTER); //press enter key
-            robot.keyRelease(KeyEvent.VK_ENTER); //release enter key
+            robot.keyPress(KeyEvent.VK_ENTER);      //press enter key
+            robot.keyRelease(KeyEvent.VK_ENTER);    //release enter key
         } catch (AWTException e){
             e.printStackTrace();
         }
