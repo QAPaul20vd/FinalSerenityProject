@@ -29,13 +29,15 @@ public class ReviewTests extends BaseTest {
     private ReviewSteps reviewSteps;
 
     @Test
-    public void test1_GuestUserRating(){
+    public void test1_GuestUserRating() {
+        String reviewText = "This product is good!";
+
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(2);
         reviewSteps.clickReviewTab();
         reviewSteps.setRating(5);
-        reviewSteps.insertReviewText("This product is good!");
+        reviewSteps.insertReviewText(reviewText);
         reviewSteps.typeReviewerData("User", "test@mailinator.com");
         reviewSteps.submitReview();
         adminLoginSteps.navigateToAdminPage();
@@ -52,12 +54,12 @@ public class ReviewTests extends BaseTest {
         shopSteps.clickProduct(2);
         reviewSteps.clickReviewTab();
         reviewSteps.verifyReviewIsDisplayed("User");
-        reviewSteps.verifyCommentIsDisplayed("This product is good!");
+        reviewSteps.verifyCommentIsDisplayed(reviewText);
     }
 
     @Test
-    public void test2_LoggedInUserRating(){
-        String reviewText = "I like this product.";
+    public void test2_LoggedInUserRating() {
+        String reviewText = "This product is useless.";
 
         homeSteps.navigateToHomePage();
         homeSteps.clickMyAccountLink();
@@ -86,7 +88,4 @@ public class ReviewTests extends BaseTest {
         reviewSteps.verifyReviewIsDisplayed(Constants.USER_NAME);
         reviewSteps.verifyCommentIsDisplayed(reviewText);
     }
-
-
-
 }

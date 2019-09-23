@@ -37,22 +37,11 @@ public class SearchSteps extends PageObject {
     public void verifyPageTitleInvalidKeyword() {
         Assert.assertEquals("The search function returned a product!", searchPage.getPageTitle(), "Nothing Found");
     }
-/*
-    @Step
-    public List<String> getListOfSearchedTitlesInShop(String keyword) {
-        List<String> listOfTitles = shopPage.getProductsTitles(keyword);
-        Collections.sort(listOfTitles);
-        System.out.println(listOfTitles);
-        return listOfTitles;
-    }
 
     @Step
-    public List<String> getListOfFoundTitles() {
-        List<String> listOfFoundTitles = searchPage.getFoundTitles();
-        Collections.sort(listOfFoundTitles);
-        System.out.println(listOfFoundTitles);
-        return listOfFoundTitles;
-    }*/
+    public void gotoFoundItem(){
+        searchPage.clickItemFound();
+    }
 
     @Step
     public void verifySearchReturnedAllTitlesAvailable(String keyword) {

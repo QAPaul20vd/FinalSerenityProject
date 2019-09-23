@@ -14,15 +14,10 @@ public class BasePage extends PageObject {
      */
 
     protected int getIntValue(String value) {
+        waitPreloaderDisappear();
         String arrPrice = value.replaceAll("[^0-9]", "");
         return Integer.valueOf(arrPrice);
     }
-
-//    private int getIntValue(String price) {
-//        String[] arrPrice = price.split(",");
-//        String finalPrice = arrPrice[0];
-//        return Integer.valueOf(finalPrice);
-//    }
 
     /**
      * Click one Item in a given List
@@ -66,12 +61,14 @@ public class BasePage extends PageObject {
     private WebElementFacade cartContent;
 
     protected int itemsInCart(){
+        waitPreloaderDisappear();
         String strCart = cartContent.getText();
         String[] arrCartContent = strCart.split("-");
         return getIntValue(arrCartContent[0]);
     }
 
     protected int priceInCart(){
+        waitPreloaderDisappear();
         String strCart = cartContent.getText();
         String[] arrCartContent = strCart.split("-");
         return getIntValue(arrCartContent[1]);

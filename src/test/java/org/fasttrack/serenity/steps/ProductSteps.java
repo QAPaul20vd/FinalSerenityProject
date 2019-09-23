@@ -16,9 +16,13 @@ public class ProductSteps extends PageObject {
 
     @Step
     public void addProductToCartIfInStock() {
-
         if (!productPage.checkProductStock())
             productPage.clickAddToCartButton();
+    }
+
+    @Step
+    public void verifyProductIsOutOfStock() {
+        Assert.assertTrue("The product is in stock!", productPage.checkProductStock());
     }
 
     @Step
@@ -34,7 +38,12 @@ public class ProductSteps extends PageObject {
     }
 
     @Step
-    public void verifyCart(){
+    public void verifyCart() {
         Assert.assertTrue(productPage.verifyQuantityAndTotalPriceOfProductsAddedToCart());
+    }
+
+    @Step
+    public void viewCart() {
+        productPage.clickViewCartButton();
     }
 }

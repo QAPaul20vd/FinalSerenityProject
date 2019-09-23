@@ -134,5 +134,4 @@ public class CartTests extends BaseTest {
         cartSteps.proceedToCheckout();
         checkoutSteps.checkIfCheckoutPageIsOpen();
     }
-
 }

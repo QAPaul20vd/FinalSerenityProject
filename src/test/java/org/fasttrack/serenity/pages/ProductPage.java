@@ -22,7 +22,7 @@ public class ProductPage extends BasePage {
     @FindBy(css = "button[type=submit]")
     private WebElementFacade addToCartButton;
 
-    @FindBy(css = ".stock")
+    @FindBy(className = "stock")
     private WebElementFacade outOfStockMessage;
 
     @FindBy(css = "div[role=alert]")
@@ -30,6 +30,7 @@ public class ProductPage extends BasePage {
 
     @FindBy(css = "div[role=alert] a")
     private WebElementFacade viewCartButton;
+
 
     /**
      * Review selectors
@@ -78,13 +79,9 @@ public class ProductPage extends BasePage {
         return getIntValue(actualPrice.getText());
     }
 
-    public String getPageNameOfProduct() {
-        waitPreloaderDisappear();
-        return nameOfProduct.getText().toUpperCase();
-    }
-
     public void setQuantity(String quantity) {
         waitPreloaderDisappear();
+        System.out.println(inputQtyBox.getValue());
         inputQtyBox.clear();
         typeInto(inputQtyBox, quantity);
     }
@@ -132,7 +129,6 @@ public class ProductPage extends BasePage {
 
     public boolean searchForComment(String comment) {
         waitPreloaderDisappear();
-        System.out.println("*" + commentsList.get(commentsList.size() - 1).getText() + "*");
         return commentsList.get(commentsList.size() - 1).getText().equals(comment);
     }
 
@@ -142,6 +138,7 @@ public class ProductPage extends BasePage {
      */
 
     public boolean checkProductStock() {
+        waitPreloaderDisappear();
         return outOfStockMessage.isCurrentlyVisible();
     }
 

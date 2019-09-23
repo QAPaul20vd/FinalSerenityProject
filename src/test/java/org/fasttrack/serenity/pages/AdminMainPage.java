@@ -8,8 +8,6 @@ import org.openqa.selenium.interactions.Actions;
 
 public class AdminMainPage extends BasePage {
 
-
-
     @FindBy(css = ".ab-top-secondary  > li > a")
     private WebElementFacade welcomeMessage;
 
@@ -38,7 +36,7 @@ public class AdminMainPage extends BasePage {
         return newComment.isCurrentlyVisible();
     }
 
-    public void checkNewCommentWasApproved(){
+    public void checkNewCommentWasApproved() {
         waitPreloaderDisappear();
         newComment.shouldNotBeCurrentlyVisible();
     }
@@ -49,7 +47,6 @@ public class AdminMainPage extends BasePage {
         WebElement approveComment = getDriver().findElement((By.cssSelector(".approve")));
         action.moveToElement(newCommentRow).click(approveComment).build().perform();
     }
-
 
     public void clickLogoutAdminButton() {
         Actions action = new Actions(getDriver());

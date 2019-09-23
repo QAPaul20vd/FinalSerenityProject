@@ -3,10 +3,7 @@ package org.fasttrack.serenity.features;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import org.fasttrack.serenity.Utils.Constants;
-import org.fasttrack.serenity.steps.HomeSteps;
-import org.fasttrack.serenity.steps.ProductSteps;
-import org.fasttrack.serenity.steps.RegisterSteps;
-import org.fasttrack.serenity.steps.ShopSteps;
+import org.fasttrack.serenity.steps.*;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +24,9 @@ public class ShopTest extends BaseTest {
 
     @Steps
     private ProductSteps productSteps;
+
+    @Steps
+    private SearchSteps searchSteps;
 
     @Test
     public void test1_SortByPriceAscending() {
@@ -55,14 +55,20 @@ public class ShopTest extends BaseTest {
     }
 
     @Test
-    public void test4_CheckNumberOfItemsAndTotalPriceDisplayedInCart(){
+    public void test4_CheckNumberOfItemsAndTotalPriceDisplayedInCart() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
-        shopSteps.clickProduct(1);
-        productSteps.inputQuantity("4");
+        shopSteps.clickProduct(2);
+        productSteps.inputQuantity("2");
         productSteps.addProductToCartIfInStock();
         productSteps.verifyCart();
-
     }
 
+    @Test
+    public void test5_OutOfStockProductCanNotBeAddedInCart() {
+        homeSteps.navigateToHomePage();
+        searchSteps.searchBy("Belt");
+        searchSteps.gotoFoundItem();
+        productSteps.verifyProductIsOutOfStock();
+    }
 }

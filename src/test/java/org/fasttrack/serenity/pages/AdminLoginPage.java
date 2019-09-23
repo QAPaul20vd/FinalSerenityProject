@@ -25,16 +25,16 @@ public class AdminLoginPage extends BasePage {
      * Login Methods
      */
 
-    public void setAdminUsername(){
+    public void setAdminUsername() {
         waitPreloaderDisappear();
         typeInto(usernameInputField, Constants.ADMIN_USERNAME);
     }
 
-    public void setAdminPassword(){
+    public void setAdminPassword() {
         typeInto(passwordInputField, Constants.ADMIN_PASSWORD);
     }
 
-    public void clickSubmitButton(){
+    public void clickSubmitButton() {
         clickOn(submitButton);
     }
 }

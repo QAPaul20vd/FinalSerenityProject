@@ -79,7 +79,7 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test
-    public void test4_AddCouponToOrderAndVerifyPrices(){
+    public void test4_AddCouponToOrderAndVerifyPrices() {
         homeSteps.navigateToHomePage();
         homeSteps.clickShopLink();
         shopSteps.clickProduct(2);
@@ -91,9 +91,5 @@ public class CheckoutTest extends BaseTest {
         checkoutSteps.addCouponToOrder("promo30");
         checkoutSteps.verifyMessageAfterAddingCoupon();
         checkoutSteps.verifyCheckoutTotalWithValidCoupon();
-
-
     }
-
-
 }

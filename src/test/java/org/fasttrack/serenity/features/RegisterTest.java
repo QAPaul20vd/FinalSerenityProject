@@ -1,4 +1,5 @@
 package org.fasttrack.serenity.features;
+
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import org.fasttrack.serenity.Utils.Constants;

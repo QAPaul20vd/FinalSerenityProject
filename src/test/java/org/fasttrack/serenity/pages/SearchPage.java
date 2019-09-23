@@ -18,14 +18,22 @@ public class SearchPage extends BasePage {
     @FindBy(css = "article .entry-header")
     private List<WebElementFacade> foundItemsTitlesList;
 
+    @FindBy(css = ".entry-title a")
+    private WebElementFacade itemFound;
+
     public String getKeyword() {
         waitPreloaderDisappear();
         return keyword.getText();
     }
 
-    public String getPageTitle(){
+    public String getPageTitle() {
         waitPreloaderDisappear();
         return pageTitle.getText();
+    }
+
+    public void clickItemFound() {
+        waitPreloaderDisappear();
+        clickOn(itemFound);
     }
 
     public boolean verifyEachTitleFoundWithKeyword(String keyword) {
@@ -37,9 +45,9 @@ public class SearchPage extends BasePage {
         return true;
     }
 
-    public List<String> getFoundTitles(){
+    public List<String> getFoundTitles() {
         List<String> foundTitleList = new ArrayList<>();
-        for(WebElementFacade item : foundItemsTitlesList){
+        for (WebElementFacade item : foundItemsTitlesList) {
             foundTitleList.add(item.getText());
         }
         return foundTitleList;
